@@ -318,6 +318,7 @@
       <button class="btn" id="ghSave">Подключить</button>
       <button class="btn ghost" id="ghOff">Отключить</button>
     </div>
+    <button class="btn gold" id="ghLink" style="width:100%">🔗 Ссылка для второго телефона</button>
     <p class="note" id="ghStatus"></p>
     <details><summary class="note" style="font-family:Nunito;font-size:13px;text-decoration:underline">Как получить токен</summary>
       <ol class="note">
@@ -721,12 +722,30 @@ async function syncNow(){
   } finally { syncing = false; if (dirty) { clearTimeout(syncT); syncT = setTimeout(syncNow, 15000); } }
 }
 function fillSettingsIfClosed(){ if (!$('#settings').open) fillSettings(); }
-$('#ghSave').onclick = async () => {
-  const repo = $('#ghRepo').value.trim().replace(/^https?:\/\/github\.com\//,'').replace(/\.git$/,'').replace(/\/$/,'');
-  const token = $('#ghToken').value.trim();
+$('#ghSave').onclick = () => connect();
+$('#ghToken').addEventListener('change', () => { if ($('#ghToken').value.trim()) connect(); });
+async function connect(repoIn, tokenIn){
+  const repo = (repoIn || $('#ghRepo').value).trim().replace(/^https?:\/\/github\.com\//,'').replace(/\.git$/,'').replace(/\/$/,'');
+  const token = (tokenIn || $('#ghToken').value).trim();
   if (!/^[\w.-]+\/[\w.-]+$/.test(repo) || !token) return toast('Нужны репозиторий и токен');
-  localStorage.setItem(LSG, JSON.stringify({ repo, token })); $('#ghStatus').textContent = 'Подключаюсь…'; await syncNow();
+  localStorage.setItem(LSG, JSON.stringify({ repo, token }));
+  if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(()=>{});
+  $('#ghRepo').value = repo; $('#ghToken').value = token;
+  $('#ghStatus').textContent = 'Токен сохранён на этом устройстве. Подключаюсь…'; await syncNow();
+}
+$('#ghLink').onclick = async () => {
+  const g = gh(); if (!g.token) return toast('Сначала подключи синхронизацию на этом телефоне');
+  const url = location.origin + location.pathname + '#key=' + encodeURIComponent(g.token) + '&repo=' + encodeURIComponent(g.repo);
+  try { if (navigator.share) { await navigator.share({ title: 'Капитан Мусаси', url }); return; } } catch(e){ if (e.name === 'AbortError') return; }
+  try { await navigator.clipboard.writeText(url); toast('Ссылка скопирована. Отправь её только девушке в личку 🔐'); }
+  catch(e){ prompt('Скопируй ссылку:', url); }
 };
+(function fromLink(){
+  const h = new URLSearchParams(location.hash.slice(1)); const k = h.get('key');
+  if (!k) return;
+  history.replaceState(null, '', location.pathname + location.search);
+  setTimeout(() => { connect(h.get('repo') || guessRepo(), k); toast('⚓ Синхронизация подключена по ссылке'); }, 50);
+})();
 $('#ghOff').onclick = () => { localStorage.removeItem(LSG); $('#ghToken').value = ''; badge(''); $('#ghStatus').textContent = 'Синхронизация выключена. Отметки хранятся только на этом телефоне.'; };
 document.addEventListener('visibilitychange', () => { if (!document.hidden){ render(); syncNow(); } });
 setInterval(() => { if (!document.hidden) syncNow(); }, 30000);
