@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Капитан Мусаси · судовой журнал лечения</title>
+<meta name="theme-color" content="#13233a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Мусаси">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sea:#13233a; --sea2:#1c3354; --wave:#2b4b74;
+    --paper:#f6e8c8; --paper2:#ecd7a8; --ink:#3a2a17; --ink2:#7a6040;
+    --gold:#e3a628; --gold2:#ffd26a; --red:#b8412c; --green:#3f8a4f; --cat:#f0aa5c;
+    --r:18px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0}
+  body{
+    font-family:Nunito,system-ui,sans-serif; color:var(--ink);
+    background:
+      radial-gradient(circle at 20% 0%, #24406a 0, transparent 50%),
+      radial-gradient(circle at 100% 30%, #1d3a5f 0, transparent 40%),
+      var(--sea);
+    min-height:100vh; padding-bottom:40px;
+  }
+  .wrap{max-width:520px;margin:0 auto;padding:12px 14px calc(20px + env(safe-area-inset-bottom))}
+  h1,h2,.title{font-family:"Rubik Dirt",Nunito,sans-serif;font-weight:400;letter-spacing:.5px}
+  /* ---------- hero ---------- */
+  .hero{position:relative;text-align:center;color:var(--paper);padding:8px 0 0}
+  .hero svg.cat{width:220px;height:220px;display:block;margin:0 auto -6px;filter:drop-shadow(0 8px 0 rgba(0,0,0,.25));cursor:pointer}
+  .hero h1{font-size:34px;margin:0;line-height:1.05;color:var(--gold2);text-shadow:0 3px 0 #0008}
+  .hero .sub{opacity:.85;font-weight:700;margin-top:4px}
+  .stats{display:flex;gap:8px;justify-content:center;margin:12px 0 4px;flex-wrap:wrap}
+  .pill{background:#0004;border:1px solid #fff2;color:var(--paper);border-radius:999px;padding:6px 12px;font-weight:800;font-size:14px;display:flex;gap:6px;align-items:center}
+  .pill b{color:var(--gold2)}
+  .who{display:flex;justify-content:center;gap:6px;margin:10px 0 2px;align-items:center;color:var(--paper);font-weight:700;font-size:14px}
+  .who button{border:0;border-radius:999px;padding:6px 12px;font:inherit;font-weight:800;background:#0004;color:var(--paper);border:1px solid #fff3}
+  .who button.on{background:var(--gold);color:#3a2a10;border-color:var(--gold)}
+  /* ---------- cards ---------- */
+  .card{background:var(--paper);border-radius:var(--r);padding:16px;margin:14px 0;position:relative;
+    box-shadow:0 6px 0 #0000003a, inset 0 0 0 2px #c9a86a55, inset 0 0 40px #c9a06a40}
+  .card h2{font-size:22px;margin:0 0 10px;color:var(--ink)}
+  .daynav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+  .daynav button{width:40px;height:40px;border-radius:12px;border:2px solid var(--ink2);background:transparent;font-size:20px;font-weight:900;color:var(--ink)}
+  .daynav button:disabled{opacity:.25}
+  .daynav .lbl{text-align:center;flex:1}
+  .daynav .lbl .t{font-family:"Rubik Dirt",Nunito,sans-serif;font-size:22px}
+  .daynav .lbl .d{font-size:13px;color:var(--ink2);font-weight:700}
+  .today-link{font-size:12px;color:var(--red);font-weight:800;background:none;border:0;text-decoration:underline;cursor:pointer;padding:0}
+  .row-h{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 8px}
+  .row-h .n{font-weight:900;font-size:17px}
+  .row-h .c{font-weight:800;color:var(--ink2);font-size:14px}
+  .slots{display:grid;gap:8px}
+  .slots.s3{grid-template-columns:repeat(3,1fr)}
+  .slots.s5{grid-template-columns:repeat(5,1fr)}
+  .slot{border:2.5px dashed #a98a5a;border-radius:14px;min-height:74px;background:#fff6;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font:inherit;color:var(--ink2);padding:6px 2px;cursor:pointer;transition:transform .12s}
+  .slot:active{transform:scale(.94)}
+  .slot .i{font-size:24px;line-height:1;filter:grayscale(1);opacity:.45}
+  .slot .p{font-size:12px;font-weight:800;margin-top:4px}
+  .slot.done{border:2.5px solid var(--gold);background:linear-gradient(160deg,#ffe28f,#f0b53c);color:#4a3008;box-shadow:0 3px 0 #b67d14}
+  .slot.done .i{filter:none;opacity:1}
+  .slot.done .p{font-size:13px;font-weight:900}
+  .slot .w{font-size:11px;font-weight:800;opacity:.8}
+  .slot.late:not(.done){border-color:var(--red);color:var(--red)}
+  .slot.pop{animation:pop .5s}
+  @keyframes pop{0%{transform:scale(.8)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+  .bar{height:12px;border-radius:99px;background:#d9c08e;overflow:hidden;margin-top:16px}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:99px;transition:width .4s}
+  .msg{margin-top:10px;font-weight:800;text-align:center;min-height:22px}
+  .banner{border-radius:14px;padding:10px 12px;font-weight:800;margin-top:12px;display:flex;gap:10px;align-items:center}
+  .banner.wait{background:#13233a;color:var(--paper)}
+  .banner.wait b{color:var(--gold2);font-size:20px;font-variant-numeric:tabular-nums}
+  .banner.next{background:#fff7;border:2px solid #c9a86a}
+  .banner.next.late{border-color:var(--red);color:var(--red)}
+  /* ---------- map ---------- */
+  .map{background:
+      radial-gradient(circle at 30% 30%,#ffffff40,transparent 50%),
+      linear-gradient(#f3dca9,#e8c98a);
+    border-radius:14px;padding:6px;box-shadow:inset 0 0 0 2px #a9864c, inset 0 0 30px #a9864c66}
+  .map svg{width:100%;height:auto;display:block}
+  .isl{cursor:pointer}
+  .legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;font-weight:800;color:var(--ink2);margin-top:8px}
+  .legend span{display:flex;align-items:center;gap:5px}
+  .legend i{width:14px;height:14px;border-radius:50%;display:inline-block}
+  /* ---------- journal ---------- */
+  .eyes{display:flex;gap:6px;justify-content:space-between}
+  .eyes button{flex:1;border:2px solid #c9a86a;background:#fff6;border-radius:12px;padding:8px 0;font-size:22px;cursor:pointer}
+  .eyes button small{display:block;font-size:10px;font-weight:800;color:var(--ink2);font-family:Nunito}
+  .eyes button.on{background:var(--gold2);border-color:var(--gold)}
+  textarea,input,select{width:100%;font:inherit;font-weight:700;color:var(--ink);background:#fff8;border:2px solid #c9a86a;border-radius:12px;padding:10px}
+  textarea{min-height:70px;resize:vertical;margin-top:10px}
+  label{font-weight:800;font-size:13px;color:var(--ink2);display:block;margin:10px 0 4px}
+  .hist{margin-top:12px;font-size:14px}
+  .hist div{padding:6px 0;border-top:1px dashed #c9a86a}
+  /* ---------- photos ---------- */
+  .pols{display:flex;gap:12px;justify-content:center;padding:6px 0 10px}
+  .pol{background:#fff;padding:7px 7px 26px;border-radius:4px;box-shadow:0 6px 14px #0006;width:46%;position:relative}
+  .pol img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;border-radius:2px}
+  .pol span{position:absolute;bottom:5px;left:0;right:0;text-align:center;font-weight:800;font-size:12px;color:#555}
+  .pol:nth-child(1){transform:rotate(-4deg)} .pol:nth-child(2){transform:rotate(3deg)}
+  /* ---------- settings ---------- */
+  details.card summary{font-family:"Rubik Dirt",Nunito,sans-serif;font-size:20px;cursor:pointer;list-style:none}
+  details.card summary::-webkit-details-marker{display:none}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .btn{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:900;background:var(--sea);color:var(--paper);cursor:pointer;margin-top:10px}
+  .btn.gold{background:var(--gold);color:#3a2a10}
+  .btn.ghost{background:transparent;border:2px solid var(--ink2);color:var(--ink)}
+  .btn.red{background:var(--red)}
+  .note{font-size:12.5px;color:var(--ink2);font-weight:700;line-height:1.4}
+  .sync{position:fixed;top:calc(8px + env(safe-area-inset-top));right:10px;z-index:5;background:#0007;color:var(--paper);border-radius:99px;padding:5px 10px;font-size:12px;font-weight:800;border:1px solid #fff2}
+  /* ---------- modal & toast ---------- */
+  .modal{position:fixed;inset:0;background:#0009;display:none;align-items:flex-end;justify-content:center;z-index:20}
+  .modal.open{display:flex}
+  .sheet{background:var(--paper);width:100%;max-width:520px;border-radius:22px 22px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));animation:up .25s}
+  @keyframes up{from{transform:translateY(100%)}}
+  .sheet h3{font-family:"Rubik Dirt",Nunito,sans-serif;font-weight:400;font-size:24px;margin:0 0 6px}
+  .sheet .acts{display:flex;gap:8px;flex-wrap:wrap}
+  .sheet .acts .btn{flex:1}
+  .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(150%);background:var(--sea);color:var(--paper);
+    border:2px solid var(--gold);padding:12px 18px;border-radius:16px;font-weight:900;z-index:30;transition:transform .3s;max-width:92vw;text-align:center}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .coin{position:fixed;z-index:40;font-size:28px;pointer-events:none;animation:coin 1s ease-in forwards}
+  @keyframes coin{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.5) rotate(360deg)}}
+  #patch{transition:transform .6s cubic-bezier(.5,-0.4,.5,1.4);transform-origin:100px 132px}
+  #patch.peek{transform:translate(-6px,-34px) rotate(-25deg)}
+  #patch.gone{transform:translate(-80px,240px) rotate(-200deg);transition:transform 1.4s ease-in}
+  #eyeL{opacity:0;transition:opacity .4s .2s}
+  #patch.peek ~ #eyeL, #patch.gone ~ #eyeL{opacity:1}
+  .confetti{position:fixed;top:-20px;z-index:50;font-size:22px;animation:fall linear forwards;pointer-events:none}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+  footer{text-align:center;color:#ffffff70;font-size:12px;font-weight:700;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="sync" id="syncBadge" hidden>☁️</div>
+<div class="wrap">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <svg class="cat" id="cat" viewBox="0 0 240 240" aria-label="Мультяшный кот-пират Мусаси">
+      <!-- fluffy body -->
+      <ellipse cx="120" cy="222" rx="78" ry="34" fill="#e89a48"/>
+      <path d="M50 214 q8-14 16 0 q8-14 16 0 q8-14 16 0 q8-14 16 0 q8-14 16 0 q8-14 16 0 q8-14 16 0 q8-14 16 0" fill="none" stroke="#f6c389" stroke-width="5" stroke-linecap="round"/>
+      <!-- ears -->
+      <path d="M40 120 L34 52 L92 86 Z" fill="#e89a48"/>
+      <path d="M47 108 L45 68 L80 89 Z" fill="#f7b6a6"/>
+      <path d="M200 120 L206 52 L148 86 Z" fill="#e89a48"/>
+      <path d="M193 108 L195 68 L160 89 Z" fill="#f7b6a6"/>
+      <!-- head with fluff -->
+      <path d="M120 66 C170 66 196 100 196 138 c6 6 6 14 0 18 c2 8 -2 14 -8 16 c-4 22 -34 40 -68 40 s-64-18-68-40 c-6-2-10-8-8-16 c-6-4-6-12 0-18 C44 100 70 66 120 66 Z" fill="#f0aa5c"/>
+      <!-- forehead stripes -->
+      <path d="M120 92 v20 M106 94 q-2 10 2 18 M134 94 q2 10 -2 18" stroke="#d47f2f" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <!-- cheeks fluff -->
+      <path d="M54 160 l-14 4 l12 4 l-10 8 l14 -2" fill="#f6c389"/>
+      <path d="M186 160 l14 4 l-12 4 l10 8 l-14 -2" fill="#f6c389"/>
+      <!-- muzzle -->
+      <ellipse cx="106" cy="170" rx="18" ry="14" fill="#fbe0bd"/>
+      <ellipse cx="134" cy="170" rx="18" ry="14" fill="#fbe0bd"/>
+      <path d="M112 156 h16 l-8 10 Z" fill="#f08a96" stroke="#c96470" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M120 166 v6 q-6 8 -13 3 M120 172 q6 8 13 3" stroke="#7a4a2a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- whiskers -->
+      <g stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".9">
+        <path d="M88 168 L48 160 M88 174 L46 178"/><path d="M152 168 L192 160 M152 174 L194 178"/>
+      </g>
+      <!-- blush -->
+      <ellipse cx="78" cy="160" rx="10" ry="6" fill="#f08a6a" opacity=".45"/>
+      <ellipse cx="162" cy="160" rx="10" ry="6" fill="#f08a6a" opacity=".45"/>
+      <!-- right (healthy) eye — viewer's right -->
+      <g>
+        <ellipse cx="148" cy="134" rx="16" ry="18" fill="#5b3a12"/>
+        <ellipse cx="148" cy="136" rx="13" ry="15" fill="#c08a2c"/>
+        <ellipse cx="148" cy="137" rx="7" ry="11" fill="#1a0f05"/>
+        <circle cx="153" cy="128" r="5" fill="#fff"/><circle cx="143" cy="143" r="2.5" fill="#fff"/>
+        <path d="M131 118 q17 -8 34 2" stroke="#7a4a2a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </g>
+      <!-- eye-patch on viewer's left (sick eye) -->
+      <g id="patch">
+        <path d="M60 104 L186 78" stroke="#1b1b1b" stroke-width="5" stroke-linecap="round"/>
+        <path d="M78 140 L52 150" stroke="#1b1b1b" stroke-width="5" stroke-linecap="round"/>
+        <path d="M76 122 q24 -14 48 0 q2 26 -24 34 q-26 -6 -24 -34 Z" fill="#1b1b1b"/>
+        <path d="M84 126 q16 -8 32 0" stroke="#444" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- tiny skull on patch -->
+        <circle cx="100" cy="137" r="5" fill="#e8e0cc"/><rect x="97" y="140" width="6" height="4" rx="1" fill="#e8e0cc"/>
+        <circle cx="98.2" cy="136.5" r="1.3" fill="#1b1b1b"/><circle cx="101.8" cy="136.5" r="1.3" fill="#1b1b1b"/>
+      </g>
+      <!-- recovered eye (shown when patch lifts) -->
+      <g id="eyeL">
+        <ellipse cx="96" cy="134" rx="16" ry="18" fill="#5b3a12"/>
+        <ellipse cx="96" cy="136" rx="13" ry="15" fill="#c08a2c"/>
+        <ellipse cx="96" cy="137" rx="7" ry="11" fill="#1a0f05"/>
+        <circle cx="101" cy="128" r="5" fill="#fff"/>
+      </g>
+      <!-- tricorn hat -->
+      <path d="M58 86 C70 30 170 30 182 86 Z" fill="#2a1c12"/>
+      <path d="M26 84 C60 60 90 92 120 70 C150 92 180 60 214 84 C196 100 164 96 120 94 C76 96 44 100 26 84 Z" fill="#3a2718"/>
+      <path d="M26 84 C60 60 90 92 120 70 C150 92 180 60 214 84" fill="none" stroke="#e3a628" stroke-width="4" stroke-linecap="round"/>
+      <!-- skull & bones on hat -->
+      <g transform="translate(120 56)">
+        <path d="M-14 10 L14 -2 M-14 -2 L14 10" stroke="#f3ecd8" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="0" cy="-4" r="9" fill="#f3ecd8"/><rect x="-5" y="2" width="10" height="7" rx="2" fill="#f3ecd8"/>
+        <circle cx="-3.5" cy="-5" r="2.4" fill="#2a1c12"/><circle cx="3.5" cy="-5" r="2.4" fill="#2a1c12"/>
+      </g>
+      <!-- paws -->
+      <ellipse cx="92" cy="214" rx="16" ry="11" fill="#f6c389"/>
+      <ellipse cx="148" cy="214" rx="16" ry="11" fill="#f6c389"/>
+      <path d="M86 210 v6 M92 209 v7 M98 210 v6 M142 210 v6 M148 209 v7 M154 210 v6" stroke="#d48a45" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <h1 id="title">Капитан Мусаси</h1>
+    <div class="sub" id="sub">Курс лечения глаза</div>
+    <div class="stats">
+      <div class="pill">🗓 День <b id="sDay">1</b>/<span id="sDays">40</span></div>
+      <div class="pill">🪙 <b id="sCoins">0</b> дублонов</div>
+      <div class="pill">💰 <b id="sChests">0</b> сундуков</div>
+    </div>
+    <div class="who">Отмечает: <span id="whoBtns"></span></div>
+  </section>
+
+  <!-- ===== DAY ===== -->
+  <section class="card" id="dayCard">
+    <div class="daynav">
+      <button id="prev" aria-label="Предыдущий день">‹</button>
+      <div class="lbl"><div class="t" id="dTitle">Сегодня</div><div class="d" id="dDate"></div>
+        <button class="today-link" id="goToday" hidden>вернуться к сегодня</button></div>
+      <button id="next" aria-label="Следующий день">›</button>
+    </div>
+    <div id="banners"></div>
+    <div class="row-h"><span class="n">💧 Капли</span><span class="c" id="cDrop">0/3</span></div>
+    <div class="slots s3" id="slotsDrop"></div>
+    <div class="row-h"><span class="n">🧴 Мазь за веко</span><span class="c" id="cOint">0/5</span></div>
+    <div class="slots s5" id="slotsOint"></div>
+    <div class="bar"><i id="bar" style="width:0"></i></div>
+    <div class="msg" id="dayMsg"></div>
+  </section>
+
+  <!-- ===== MAP ===== -->
+  <section class="card">
+    <h2>🗺 Карта сокровищ</h2>
+    <div class="map"><svg id="map" viewBox="0 0 360 250"></svg></div>
+    <div class="legend">
+      <span><i style="background:#f0b53c"></i>весь день</span>
+      <span><i style="background:linear-gradient(90deg,#f0b53c 50%,#d9c08e 50%)"></i>частично</span>
+      <span><i style="background:#8d8d8d"></i>пропуск</span>
+      <span><i style="background:#fff;border:2px solid #a9864c"></i>впереди</span>
+    </div>
+    <p class="note" style="margin:8px 0 0">Нажми на остров, чтобы открыть этот день.</p>
+  </section>
+
+  <!-- ===== JOURNAL ===== -->
+  <section class="card">
+    <h2>📜 Бортовой журнал</h2>
+    <div class="note" id="jDate" style="margin-bottom:8px"></div>
+    <div class="eyes" id="eyes"></div>
+    <textarea id="note" placeholder="Как глаз сегодня? Слезится, открывает, выделения…"></textarea>
+    <div class="hist" id="hist"></div>
+  </section>
+
+  <!-- ===== PHOTOS ===== -->
+  <section class="card">
+    <h2>🏴‍☠️ Настоящий капитан</h2>
+    <div class="pols">
+      <div class="pol"><img src="photo-hands.jpg" alt="Мусаси на руках"><span>на вахте</span></div>
+      <div class="pol"><img src="photo-sleep.jpg" alt="Мусаси спит"><span>отбой после мази</span></div>
+    </div>
+  </section>
+
+  <!-- ===== SETTINGS ===== -->
+  <details class="card" id="settings">
+    <summary>⚙️ Настройки корабля</summary>
+    <div class="grid2">
+      <div><label>Начало курса</label><input type="date" id="stStart"></div>
+      <div><label>Дней в курсе</label><input type="number" id="stDays" min="1" max="120"></div>
+      <div><label>Юнга 1</label><input id="stN0"></div>
+      <div><label>Юнга 2</label><input id="stN1"></div>
+    </div>
+    <label>План капель (через запятую)</label><input id="stDrop">
+    <label>План мази (через запятую)</label><input id="stOint">
+    <label>Пауза между каплями и мазью, минут</label><input type="number" id="stWait" min="0" max="60">
+    <button class="btn gold" id="stSave">Сохранить</button>
+
+    <h2 style="margin-top:22px;font-size:20px">☁️ Синхронизация двух телефонов</h2>
+    <p class="note">Отметки сохраняются в файл <code>data.json</code> в вашем репозитории на GitHub, поэтому оба телефона видят одно и то же. Нужно один раз вставить токен на каждом телефоне. Токен хранится только в этом браузере.</p>
+    <label>Репозиторий (логин/название)</label><input id="ghRepo" placeholder="login/musashi" autocapitalize="off" autocorrect="off">
+    <label>Токен GitHub</label><input id="ghToken" type="password" placeholder="github_pat_…" autocapitalize="off" autocorrect="off">
+    <div class="grid2">
+      <button class="btn" id="ghSave">Подключить</button>
+      <button class="btn ghost" id="ghOff">Отключить</button>
+    </div>
+    <p class="note" id="ghStatus"></p>
+    <details><summary class="note" style="font-family:Nunito;font-size:13px;text-decoration:underline">Как получить токен</summary>
+      <ol class="note">
+        <li>GitHub → Settings → Developer settings → Personal access tokens → <b>Fine-grained tokens</b> → Generate new token.</li>
+        <li>Repository access: <b>Only select repositories</b> → выбрать этот репозиторий.</li>
+        <li>Permissions → Repository → <b>Contents: Read and write</b>.</li>
+        <li>Срок действия поставь с запасом на курс (например, 90 дней), скопируй токен сюда.</li>
+      </ol>
+    </details>
+    <div class="grid2">
+      <button class="btn ghost" id="exp">Скачать копию</button>
+      <button class="btn ghost" id="imp">Загрузить копию</button>
+    </div>
+    <input type="file" id="impFile" accept="application/json" hidden>
+  </details>
+
+  <footer>Сделано для капитана Мусаси 🧡 Йо-хо-хо и бутылка физраствора</footer>
+</div>
+
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const LS = 'musashi.state.v1', LSG = 'musashi.gh.v1', LSME = 'musashi.me.v1';
+const pad = n => String(n).padStart(2,'0');
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parseD = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
+const addDays = (s, n) => { const d = parseD(s); d.setDate(d.getDate()+n); return ymd(d); };
+const diffDays = (a, b) => Math.round((parseD(b) - parseD(a)) / 864e5);
+const hm = iso => { const d = new Date(iso); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const today = () => ymd(new Date());
+const MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const WD = ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+const human = s => { const d = parseD(s); return `${d.getDate()} ${MONTHS[d.getMonth()]}, ${WD[d.getDay()]}`; };
+const N = { drop: 3, oint: 5 };
+const LABEL = { drop: 'капли', oint: 'мазь' };
+const ICON = { drop: '💧', oint: '🧴' };
+
+const DEFAULT_SETTINGS = {
+  start: '2026-11-10', days: 40, names: ['Я', 'Она'], wait: 5,
+  plan: { drop: ['09:00','15:00','21:00'], oint: ['09:10','12:00','15:10','18:00','21:10'] },
+  u: 0
+};
+
+/* ---------------- state ---------------- */
+function blank(){ return { v:1, settings: JSON.parse(JSON.stringify(DEFAULT_SETTINGS)), marks:{}, notes:{} }; }
+function load(){
+  try { const s = JSON.parse(localStorage.getItem(LS)); if (s && s.v === 1) return normalize(s); } catch(e){}
+  return blank();
+}
+function normalize(s){
+  s.settings = Object.assign(JSON.parse(JSON.stringify(DEFAULT_SETTINGS)), s.settings || {});
+  s.settings.plan = Object.assign({}, DEFAULT_SETTINGS.plan, s.settings.plan || {});
+  s.marks = s.marks || {}; s.notes = s.notes || {};
+  return s;
+}
+let S = load();
+let me = Number(localStorage.getItem(LSME) || 0);
+let view = clampDay(today());
+const save = () => { try { localStorage.setItem(LS, JSON.stringify(S)); } catch(e){} scheduleSync(); };
+
+function clampDay(d){
+  const st = S.settings.start, end = addDays(st, S.settings.days - 1);
+  if (d < st) return st; if (d > end) return end; return d;
+}
+const key = (d, t, i) => `${d}|${t}|${i}`;
+const mark = (d, t, i) => { const m = S.marks[key(d,t,i)]; return m && !m.del ? m : null; };
+const countDay = d => { let a = 0, b = 0; for (let i=0;i<N.drop;i++) if (mark(d,'drop',i)) a++; for (let i=0;i<N.oint;i++) if (mark(d,'oint',i)) b++; return {drop:a, oint:b, all:a+b}; };
+const TOTAL = N.drop + N.oint;
+
+/* ---------------- phrases ---------------- */
+const PH = {
+  drop: ['Йо-хо-хо, глаз промыт!','Капля в цель, капитан!','Палуба чиста, глаз тоже!','Шторм в глазу утихает!','Отличный выстрел, юнга!'],
+  oint: ['Мазь заложена, курс на выздоровление!','Глаз под защитой, как сокровище в сундуке!','Капитан доволен, юнга получает дублон!','Так держать, морской волк!','Ещё одна миля к здоровому глазу!'],
+  dayDone: ['🏆 День закрыт! Сундук в трюме!','🏆 Все процедуры сделаны. Капитан спит спокойно!','🏆 Йо-хо-хо! Остров покорён!'],
+  peek: ['Рано снимать повязку, юнга!','Повязку не трогать — приказ капитана!','Сначала доплыви до сокровища!']
+};
+const pick = a => a[Math.floor(Math.random()*a.length)];
+
+/* ---------------- UI helpers ---------------- */
+let toastT;
+function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(()=>el.classList.remove('show'), 2600); }
+function coinFx(el){
+  const r = el.getBoundingClientRect(), tgt = $('#sCoins').getBoundingClientRect();
+  const c = document.createElement('div'); c.className = 'coin'; c.textContent = '🪙';
+  c.style.left = (r.left + r.width/2 - 14) + 'px'; c.style.top = (r.top + r.height/2 - 14) + 'px';
+  c.style.setProperty('--dx', (tgt.left - r.left - r.width/2 + 14) + 'px');
+  c.style.setProperty('--dy', (tgt.top - r.top - r.height/2 + 14) + 'px');
+  document.body.appendChild(c); setTimeout(()=>c.remove(), 1100);
+}
+function confetti(n=40){
+  const em = ['🪙','✨','🏴‍☠️','💎','⭐','🧡'];
+  for (let i=0;i<n;i++){ const c = document.createElement('div'); c.className='confetti'; c.textContent = pick(em);
+    c.style.left = Math.random()*100+'vw'; c.style.animationDuration = (2+Math.random()*2)+'s'; c.style.animationDelay = Math.random()*.8+'s';
+    document.body.appendChild(c); setTimeout(()=>c.remove(), 5000); }
+}
+function openSheet(html){ $('#sheet').innerHTML = html; $('#modal').classList.add('open'); }
+function closeSheet(){ $('#modal').classList.remove('open'); }
+$('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeSheet(); });
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------------- render ---------------- */
+function render(){
+  const st = S.settings, t = today();
+  view = clampDay(view);
+  const dayN = Math.min(Math.max(diffDays(st.start, t) + 1, 0), st.days);
+  $('#sDay').textContent = Math.max(dayN, 0); $('#sDays').textContent = st.days;
+  let coins = 0, chests = 0;
+  for (let i=0;i<st.days;i++){ const c = countDay(addDays(st.start, i)); coins += c.all; if (c.all === TOTAL) chests++; }
+  $('#sCoins').textContent = coins; $('#sChests').textContent = chests;
+  $('#sub').textContent = dayN >= 1 ? `Курс лечения глаза · осталось ${st.days - dayN} дн.` : `Курс начнётся ${human(st.start)}`;
+
+  // who
+  $('#whoBtns').innerHTML = st.names.map((n,i)=>`<button data-me="${i}" class="${i===me?'on':''}">${esc(n)}</button>`).join(' ');
+
+  // day header
+  const vn = diffDays(st.start, view) + 1;
+  $('#dTitle').textContent = view === t ? `Сегодня · день ${vn}` : `День ${vn}`;
+  $('#dDate').textContent = human(view);
+  $('#goToday').hidden = view === clampDay(t);
+  $('#prev').disabled = view <= st.start;
+  $('#next').disabled = view >= addDays(st.start, st.days - 1);
+
+  // slots
+  const nowHM = `${pad(new Date().getHours())}:${pad(new Date().getMinutes())}`;
+  for (const type of ['drop','oint']){
+    const box = type === 'drop' ? $('#slotsDrop') : $('#slotsOint');
+    let html = '';
+    for (let i=0;i<N[type];i++){
+      const m = mark(view, type, i), plan = st.plan[type][i] || '';
+      const late = !m && ((view === t && plan && plan < nowHM) || view < t);
+      if (m) html += `<button class="slot done" data-t="${type}" data-i="${i}"><span class="i">${ICON[type]}</span><span class="p">${hm(m.at)}</span><span class="w">${esc(st.names[m.who] || '')}</span></button>`;
+      else html += `<button class="slot ${late?'late':''}" data-t="${type}" data-i="${i}"><span class="i">${ICON[type]}</span><span class="p">${plan || '№'+(i+1)}</span></button>`;
+    }
+    box.innerHTML = html;
+  }
+  const c = countDay(view);
+  $('#cDrop').textContent = `${c.drop}/${N.drop}`; $('#cOint').textContent = `${c.oint}/${N.oint}`;
+  $('#bar').style.width = (c.all / TOTAL * 100) + '%';
+  $('#dayMsg').textContent = c.all === TOTAL ? '🏆 День закрыт! Сундук в трюме.' : c.all === 0 ? (view > t ? 'Этот остров ещё впереди ⛵' : 'Ни одной процедуры. Свистать всех наверх!') : `Ещё ${TOTAL - c.all} до сундука`;
+
+  renderBanners();
+  renderMap();
+  renderJournal();
+  updatePatch();
+}
+
+let waitTimer;
+function renderBanners(){
+  const st = S.settings, t = today(), box = $('#banners');
+  clearInterval(waitTimer); box.innerHTML = '';
+  if (view !== t) return;
+  // wait timer after the latest drop
+  let lastDrop = null;
+  for (let i=0;i<N.drop;i++){ const m = mark(t,'drop',i); if (m && (!lastDrop || m.at > lastDrop)) lastDrop = m.at; }
+  let lastOint = null;
+  for (let i=0;i<N.oint;i++){ const m = mark(t,'oint',i); if (m && (!lastOint || m.at > lastOint)) lastOint = m.at; }
+  const waitEnd = lastDrop ? new Date(lastDrop).getTime() + st.wait*60e3 : 0;
+  if (lastDrop && Date.now() < waitEnd && !(lastOint && lastOint > lastDrop) && countDay(t).oint < N.oint){
+    box.innerHTML = `<div class="banner wait">⏳ <div>Подожди, матрос! Мазь можно через <b id="wt"></b></div></div>`;
+    const tick = () => { const left = Math.max(0, waitEnd - Date.now()); const el = $('#wt'); if (!el) return clearInterval(waitTimer);
+      el.textContent = `${Math.floor(left/60e3)}:${pad(Math.floor(left/1e3)%60)}`;
+      if (left <= 0){ clearInterval(waitTimer); toast('🧴 Можно закладывать мазь!'); renderBanners(); } };
+    tick(); waitTimer = setInterval(tick, 1000); return;
+  }
+  // next planned
+  const nowHM = `${pad(new Date().getHours())}:${pad(new Date().getMinutes())}`;
+  const todo = [];
+  for (const type of ['drop','oint']) for (let i=0;i<N[type];i++) if (!mark(t,type,i)) todo.push({type, i, p: st.plan[type][i] || '23:59'});
+  if (!todo.length) return;
+  todo.sort((a,b)=> a.p.localeCompare(b.p) || (a.type==='drop'?-1:1));
+  const n = todo[0], late = n.p < nowHM;
+  box.innerHTML = `<div class="banner next ${late?'late':''}">${ICON[n.type]} <div>${late ? 'Пора! ' : 'Следующее: '}${LABEL[n.type]} №${n.i+1} ${late ? '(по плану было в ' + n.p + ')' : 'около ' + n.p}</div></div>`;
+}
+
+function renderMap(){
+  const st = S.settings, t = today(), svg = $('#map');
+  const days = st.days, cols = 8, rows = Math.ceil(days / cols);
+  const W = 360, padX = 26, padY = 28, cw = (W - padX*2) / (cols - 1), rh = 44;
+  const H = padY*2 + (rows - 1) * rh + 44;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const pts = [];
+  for (let k=0;k<days;k++){ const r = Math.floor(k/cols), c0 = k % cols, c = r % 2 ? cols-1-c0 : c0;
+    pts.push([padX + c*cw + (r%2 ? -4 : 4), padY + r*rh + (k%3===1 ? 4 : k%3===2 ? -3 : 0)]); }
+  const endP = [Math.min(Math.max(pts[days-1][0], 30), W - 30), pts[days-1][1] + 40];
+  let d = `M${pts[0][0]} ${pts[0][1]}`;
+  for (let k=1;k<days;k++){ const [x0,y0] = pts[k-1], [x1,y1] = pts[k]; d += ` Q${(x0+x1)/2} ${(y0+y1)/2 + (x0===x1 ? 0 : (k%2?8:-8))} ${x1} ${y1}`; }
+  d += ` L${endP[0]} ${endP[1]}`;
+  let g = `<path d="${d}" fill="none" stroke="#8a5a2a" stroke-width="2.5" stroke-dasharray="5 6" stroke-linecap="round"/>`;
+  // waves decoration
+  for (let i=0;i<6;i++) g += `<path d="M${20+i*60} ${H-8} q6 -6 12 0 q6 -6 12 0" stroke="#7aa0c0" stroke-width="2" fill="none" opacity=".6"/>`;
+  let shipAt = null;
+  for (let k=0;k<days;k++){
+    const day = addDays(st.start, k), [x,y] = pts[k], c = countDay(day);
+    let fill = '#fffaf0', stroke = '#a9864c', inner = '';
+    if (c.all === TOTAL){ fill = '#f0b53c'; stroke = '#a8740f'; inner = `<text x="${x}" y="${y+4}" text-anchor="middle" font-size="11" font-weight="900" fill="#4a3008">✓</text>`; }
+    else if (c.all > 0){ fill = `url(#half)`; stroke = '#a8740f'; }
+    else if (day < t){ fill = '#8d8d8d'; stroke = '#5c5c5c'; }
+    if (!inner) inner = `<text x="${x}" y="${y+4}" text-anchor="middle" font-size="10" font-weight="900" fill="${day < t && c.all===0 ? '#eee' : '#5a4020'}">${k+1}</text>`;
+    const sel = day === view ? `<circle cx="${x}" cy="${y}" r="17" fill="none" stroke="#b8412c" stroke-width="2.5"/>` : '';
+    g += `<g class="isl" data-day="${day}"><circle cx="${x}" cy="${y}" r="16" fill="transparent"/>${sel}<circle cx="${x}" cy="${y}" r="12" fill="${fill}" stroke="${stroke}" stroke-width="2"/>${inner}</g>`;
+    if (day === t) shipAt = [x, y];
+  }
+  if (!shipAt && t < st.start) shipAt = [pts[0][0] - 2, pts[0][1] - 4];
+  g += `<g transform="translate(${endP[0]} ${endP[1]})"><path d="M-9 -9 L9 9 M9 -9 L-9 9" stroke="#b8412c" stroke-width="4.5" stroke-linecap="round"/><text x="0" y="-12" text-anchor="middle" font-size="16">💰</text></g>`;
+  if (shipAt) g += `<text x="${shipAt[0]+10}" y="${shipAt[1]-10}" text-anchor="middle" font-size="18">⛵</text>`;
+  svg.innerHTML = `<defs><linearGradient id="half"><stop offset="50%" stop-color="#f0b53c"/><stop offset="50%" stop-color="#e6d3a6"/></linearGradient></defs>` + g;
+}
+
+const EYES = [['😣','плохо'],['😕','так себе'],['😐','средне'],['🙂','лучше'],['😺','отлично']];
+function renderJournal(){
+  const n = S.notes[view] || {};
+  $('#jDate').textContent = `Запись за ${human(view)}`;
+  $('#eyes').innerHTML = EYES.map((e,i)=>`<button data-eye="${i+1}" class="${n.eye===i+1?'on':''}">${e[0]}<small>${e[1]}</small></button>`).join('');
+  if (document.activeElement !== $('#note')) $('#note').value = n.t || '';
+  // history of last notes
+  const keys = Object.keys(S.notes).filter(k => (S.notes[k].t || S.notes[k].eye)).sort().reverse().slice(0, 6);
+  $('#hist').innerHTML = keys.length ? keys.map(k => { const x = S.notes[k];
+    return `<div><b>День ${diffDays(S.settings.start,k)+1}</b> ${x.eye ? EYES[x.eye-1][0] : ''} ${esc(x.t || '')}</div>`; }).join('') : '';
+}
+
+function updatePatch(){
+  const st = S.settings, last = addDays(st.start, st.days - 1);
+  const finished = today() >= last && countDay(last).all === TOTAL || today() > last;
+  $('#patch').classList.toggle('gone', finished);
+  if (finished && !sessionStorage.getItem('musashi.fin')){ sessionStorage.setItem('musashi.fin','1'); setTimeout(()=>{ confetti(70); toast('🎉 Курс пройден! Капитан снова видит горизонт!'); }, 600); }
+}
+
+/* ---------------- actions ---------------- */
+function setMark(d, type, i, at){
+  S.marks[key(d,type,i)] = { at, who: me, u: Date.now() };
+  save();
+}
+function delMark(d, type, i){
+  const k = key(d,type,i); S.marks[k] = Object.assign({}, S.marks[k], { del: true, u: Date.now() });
+  save();
+}
+
+document.addEventListener('click', e => {
+  const slot = e.target.closest('.slot');
+  if (slot){
+    const type = slot.dataset.t, i = +slot.dataset.i, m = mark(view, type, i);
+    if (m) return sheetEdit(type, i, m);
+    if (view === today()){
+      const before = countDay(view).all;
+      setMark(view, type, i, new Date().toISOString());
+      render();
+      const el = document.querySelector(`.slot[data-t="${type}"][data-i="${i}"]`); if (el){ el.classList.add('pop'); coinFx(el); }
+      if (before + 1 === TOTAL){ confetti(); toast(pick(PH.dayDone)); }
+      else toast(pick(PH[type]) + (type === 'drop' && S.settings.wait ? ` Мазь через ${S.settings.wait} мин.` : ''));
+      if (navigator.vibrate) navigator.vibrate(30);
+    } else if (view > today()){
+      toast('Этот день ещё не наступил ⛵');
+    } else sheetAdd(type, i);
+    return;
+  }
+  const isl = e.target.closest('.isl');
+  if (isl){ view = isl.dataset.day; render(); $('#dayCard').scrollIntoView({behavior:'smooth', block:'start'}); return; }
+  const w = e.target.closest('[data-me]');
+  if (w){ me = +w.dataset.me; localStorage.setItem(LSME, me); render(); toast(`На вахте: ${S.settings.names[me]}`); return; }
+  const eye = e.target.closest('[data-eye]');
+  if (eye){ const v = +eye.dataset.eye, n = S.notes[view] || {}; S.notes[view] = { t: n.t || '', eye: n.eye === v ? 0 : v, u: Date.now() }; save(); renderJournal(); return; }
+});
+
+function sheetEdit(type, i, m){
+  const d = new Date(m.at);
+  openSheet(`<h3>${ICON[type]} ${LABEL[type][0].toUpperCase()+LABEL[type].slice(1)} №${i+1}</h3>
+    <p class="note">Отметил(а): <b>${esc(S.settings.names[m.who] || '?')}</b> · ${human(ymd(d))}, ${hm(m.at)}</p>
+    <label>Поправить время</label><input type="time" id="mt" value="${hm(m.at)}">
+    <div class="acts"><button class="btn gold" id="mSave">Сохранить</button><button class="btn red" id="mDel">Отменить отметку</button></div>
+    <button class="btn ghost" style="width:100%" id="mClose">Закрыть</button>`);
+  $('#mSave').onclick = () => { const [h,mi] = $('#mt').value.split(':').map(Number); const nd = parseD(view); nd.setHours(h, mi);
+    S.marks[key(view,type,i)] = Object.assign({}, m, { at: nd.toISOString(), u: Date.now() }); save(); closeSheet(); render(); toast('Время исправлено ✍️'); };
+  $('#mDel').onclick = () => { delMark(view, type, i); closeSheet(); render(); toast('Отметка снята'); };
+  $('#mClose').onclick = closeSheet;
+}
+function sheetAdd(type, i){
+  openSheet(`<h3>${ICON[type]} Отметить задним числом</h3>
+    <p class="note">${human(view)} · ${LABEL[type]} №${i+1}</p>
+    <label>Во сколько было</label><input type="time" id="mt" value="${S.settings.plan[type][i] || '12:00'}">
+    <div class="acts"><button class="btn gold" id="mSave">Отметить</button><button class="btn ghost" id="mClose">Отмена</button></div>`);
+  $('#mSave').onclick = () => { const [h,mi] = $('#mt').value.split(':').map(Number); const nd = parseD(view); nd.setHours(h, mi);
+    setMark(view, type, i, nd.toISOString()); closeSheet(); render(); toast(pick(PH[type])); };
+  $('#mClose').onclick = closeSheet;
+}
+
+$('#prev').onclick = () => { view = addDays(view, -1); render(); };
+$('#next').onclick = () => { view = addDays(view, 1); render(); };
+$('#goToday').onclick = () => { view = clampDay(today()); render(); };
+
+let noteT;
+$('#note').addEventListener('input', () => { clearTimeout(noteT); const d = view; noteT = setTimeout(() => {
+  const n = S.notes[d] || {}; S.notes[d] = { t: $('#note').value, eye: n.eye || 0, u: Date.now() }; save(); renderJournal(); }, 600); });
+
+$('#cat').addEventListener('click', () => {
+  const p = $('#patch'); if (p.classList.contains('gone')) { confetti(20); return toast('Капитан здоров! 🧡'); }
+  p.classList.add('peek'); toast(pick(PH.peek)); setTimeout(()=>p.classList.remove('peek'), 1200);
+});
+
+/* ---------------- settings ---------------- */
+function fillSettings(){
+  const st = S.settings;
+  $('#stStart').value = st.start; $('#stDays').value = st.days; $('#stN0').value = st.names[0]; $('#stN1').value = st.names[1];
+  $('#stDrop').value = st.plan.drop.join(', '); $('#stOint').value = st.plan.oint.join(', '); $('#stWait').value = st.wait;
+  const g = gh(); $('#ghRepo').value = g.repo || guessRepo(); $('#ghToken').value = g.token || '';
+}
+const parseTimes = (s, n, def) => { const a = s.split(/[,;\s]+/).map(x=>x.trim()).filter(x=>/^\d{1,2}:\d{2}$/.test(x)).map(x=>x.padStart(5,'0')).sort(); return a.length === n ? a : def; };
+$('#stSave').onclick = () => {
+  const st = S.settings;
+  st.start = $('#stStart').value || st.start;
+  st.days = Math.max(1, Math.min(120, +$('#stDays').value || st.days));
+  st.names = [$('#stN0').value.trim() || 'Я', $('#stN1').value.trim() || 'Она'];
+  st.plan = { drop: parseTimes($('#stDrop').value, N.drop, st.plan.drop), oint: parseTimes($('#stOint').value, N.oint, st.plan.oint) };
+  st.wait = Math.max(0, Math.min(60, +$('#stWait').value || 0));
+  st.u = Date.now(); save(); fillSettings(); view = clampDay(today()); render(); toast('Настройки сохранены ⚓');
+};
+$('#exp').onclick = () => { const b = new Blob([JSON.stringify(S, null, 1)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = `musashi-${today()}.json`; a.click(); };
+$('#imp').onclick = () => $('#impFile').click();
+$('#impFile').onchange = async e => { const f = e.target.files[0]; if (!f) return;
+  try { const r = normalize(JSON.parse(await f.text())); S = merge(S, r); save(); fillSettings(); render(); toast('Копия загружена 📦'); } catch(err){ toast('Не получилось прочитать файл'); } };
+
+/* ---------------- merge ---------------- */
+function merge(a, b){
+  if (!b) return a; if (!a) return b;
+  const out = blank();
+  out.settings = (b.settings && (b.settings.u||0) > (a.settings.u||0)) ? b.settings : a.settings;
+  for (const src of [a.marks, b.marks]) for (const k in src){ if (!out.marks[k] || (src[k].u||0) > (out.marks[k].u||0)) out.marks[k] = src[k]; }
+  for (const src of [a.notes, b.notes]) for (const k in src){ if (!out.notes[k] || (src[k].u||0) > (out.notes[k].u||0)) out.notes[k] = src[k]; }
+  return normalize(out);
+}
+
+/* ---------------- GitHub sync ---------------- */
+const BRANCH = 'data', FILE = 'data.json';
+function gh(){ try { return JSON.parse(localStorage.getItem(LSG)) || {}; } catch(e){ return {}; } }
+function guessRepo(){ const h = location.hostname; if (h.endsWith('.github.io')){ const seg = location.pathname.split('/').filter(Boolean)[0]; return h.split('.')[0] + '/' + (seg || h); } return ''; }
+const b64e = str => { const bytes = new TextEncoder().encode(str); let bin = ''; for (let i=0;i<bytes.length;i+=0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i+0x8000)); return btoa(bin); };
+const b64d = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g,'')), c => c.charCodeAt(0)));
+function badge(t, title){ const b = $('#syncBadge'); b.hidden = !t; b.textContent = t || ''; b.title = title || ''; }
+async function api(path, opt = {}){
+  const g = gh();
+  const r = await fetch(`https://api.github.com/repos/${g.repo}${path}`, Object.assign({ cache: 'no-store' }, opt, {
+    headers: Object.assign({ Authorization: 'Bearer ' + g.token, Accept: 'application/vnd.github+json' }, opt.headers || {}) }));
+  return r;
+}
+async function ensureBranch(){
+  let r = await api(`/branches/${BRANCH}`); if (r.ok) return;
+  if (r.status !== 404) throw new Error('GitHub ' + r.status);
+  const repo = await (await api('')).json();
+  const ref = await (await api(`/git/ref/heads/${repo.default_branch}`)).json();
+  r = await api('/git/refs', { method:'POST', body: JSON.stringify({ ref: `refs/heads/${BRANCH}`, sha: ref.object.sha }) });
+  if (!r.ok && r.status !== 422) throw new Error('Не удалось создать ветку data: ' + r.status);
+}
+let syncing = false, dirty = false, syncT;
+function scheduleSync(){ dirty = true; clearTimeout(syncT); syncT = setTimeout(syncNow, 1200); }
+async function syncNow(){
+  const g = gh(); if (!g.repo || !g.token) { badge(''); return; }
+  if (syncing) { clearTimeout(syncT); syncT = setTimeout(syncNow, 1500); return; }
+  syncing = true; badge('🔄', 'Синхронизация…');
+  try {
+    for (let attempt = 0; attempt < 3; attempt++){
+      let r = await api(`/contents/${FILE}?ref=${BRANCH}`);
+      if (r.status === 404){ await ensureBranch(); r = await api(`/contents/${FILE}?ref=${BRANCH}`); }
+      let sha = null, remote = null;
+      if (r.ok){ const j = await r.json(); sha = j.sha; remote = normalize(JSON.parse(b64d(j.content))); }
+      else if (r.status !== 404) throw new Error(r.status === 401 ? 'Токен не подходит' : r.status === 403 ? 'У токена нет прав на запись' : 'GitHub ' + r.status);
+      const wasDirty = dirty; dirty = false;
+      const merged = merge(S, remote);
+      const changedLocal = JSON.stringify(merged) !== JSON.stringify(S);
+      S = merged; localStorage.setItem(LS, JSON.stringify(S));
+      if (changedLocal) { render(); fillSettingsIfClosed(); }
+      if (!remote || JSON.stringify(merged) !== JSON.stringify(remote)){
+        const body = { message: `Мусаси: ${today()} ${S.settings.names[me] || ''}`.trim(), content: b64e(JSON.stringify(merged)), branch: BRANCH };
+        if (sha) body.sha = sha;
+        const p = await api(`/contents/${FILE}`, { method: 'PUT', body: JSON.stringify(body) });
+        if (p.status === 409 || p.status === 422){ dirty = dirty || wasDirty; continue; }
+        if (!p.ok) throw new Error(p.status === 403 || p.status === 404 ? 'У токена нет прав на запись' : 'GitHub ' + p.status);
+      }
+      badge('☁️✓', 'Синхронизировано ' + hm(new Date().toISOString()));
+      $('#ghStatus').textContent = `✅ Синхронизировано в ${hm(new Date().toISOString())}`;
+      break;
+    }
+  } catch(err){
+    badge('☁️⚠️', String(err.message || err)); $('#ghStatus').textContent = '⚠️ ' + (err.message || err) + '. Отметки сохранены на этом телефоне.';
+    dirty = true;
+  } finally { syncing = false; if (dirty) { clearTimeout(syncT); syncT = setTimeout(syncNow, 15000); } }
+}
+function fillSettingsIfClosed(){ if (!$('#settings').open) fillSettings(); }
+$('#ghSave').onclick = async () => {
+  const repo = $('#ghRepo').value.trim().replace(/^https?:\/\/github\.com\//,'').replace(/\.git$/,'').replace(/\/$/,'');
+  const token = $('#ghToken').value.trim();
+  if (!/^[\w.-]+\/[\w.-]+$/.test(repo) || !token) return toast('Нужны репозиторий и токен');
+  localStorage.setItem(LSG, JSON.stringify({ repo, token })); $('#ghStatus').textContent = 'Подключаюсь…'; await syncNow();
+};
+$('#ghOff').onclick = () => { localStorage.removeItem(LSG); $('#ghToken').value = ''; badge(''); $('#ghStatus').textContent = 'Синхронизация выключена. Отметки хранятся только на этом телефоне.'; };
+document.addEventListener('visibilitychange', () => { if (!document.hidden){ render(); syncNow(); } });
+setInterval(() => { if (!document.hidden) syncNow(); }, 30000);
+setInterval(() => { if (!document.hidden && !$('#modal').classList.contains('open')) { if (view !== today() && view === addDays(today(), -1)) {} render(); } }, 60000);
+
+/* ---------------- start ---------------- */
+fillSettings(); render();
+if (gh().token) syncNow(); else $('#ghStatus').textContent = 'Сейчас отметки хранятся только на этом телефоне.';
+})();
+</script>
+</body>
+</html>
