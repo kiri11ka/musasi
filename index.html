@@ -28,20 +28,35 @@
   h1,h2,.title{font-family:Forum,Georgia,serif;font-weight:400;letter-spacing:.5px}
   /* ---------- hero ---------- */
   .hero{position:relative;text-align:center;color:var(--stone);padding:18px 0 14px;margin:0 -14px;overflow:hidden;
+    --sky:linear-gradient(180deg,#121436 0%,#2a2560 34%,#4a2f63 56%,#6e3f5e 70%);
+    --wall:#2a1f45; --palm:#241a3c; --ground:#2a1f45; --stars:1;
+    background:var(--sky) top/100% 70% no-repeat, linear-gradient(180deg,var(--ground) 70%,var(--night) 100%);
+    transition:background .8s}
+  .hero.dawn{--sky:linear-gradient(180deg,#2b2f6b 0%,#7a5a9c 30%,#f0937a 56%,#ffd39a 100%);--wall:#4d3552;--palm:#3d2a45;--ground:#3a2848;--stars:.25}
+  .hero.day{--sky:linear-gradient(180deg,#3d8fd6 0%,#7cc0ee 45%,#cfeaf6 82%,#f6e7c2 100%);--wall:#8f6c42;--palm:#5d6a30;--ground:#4a3b5a;--stars:0}
+  .hero.evening{--sky:linear-gradient(180deg,#2c3778 0%,#7c4880 34%,#e0784a 72%,#ffc370 100%);--wall:#4a2a3c;--palm:#3a2030;--ground:#33213f;--stars:.1}
+  .hero.dusk{--sky:linear-gradient(180deg,#141842 0%,#33296a 40%,#7a416c 74%,#c4704a 100%);--wall:#2e2245;--palm:#251b3c;--ground:#2a1f45;--stars:.7}
+  .stars{position:absolute;left:0;right:0;top:0;height:70%;pointer-events:none;opacity:var(--stars);transition:opacity .8s;
     background:
-      radial-gradient(1.5px 1.5px at 12% 14%,#fff 50%,transparent 51%),
-      radial-gradient(1px 1px at 28% 8%,#fff 50%,transparent 51%),
-      radial-gradient(1.5px 1.5px at 72% 12%,#fff 50%,transparent 51%),
-      radial-gradient(1px 1px at 86% 22%,#fff 50%,transparent 51%),
-      radial-gradient(1px 1px at 52% 5%,#fff 50%,transparent 51%),
-      radial-gradient(1px 1px at 92% 6%,#fff 50%,transparent 51%),
-      radial-gradient(1.5px 1.5px at 6% 30%,#fff 50%,transparent 51%),
-      linear-gradient(180deg,#121436 0%,#2a2560 34%,#6b3a6e 56%,#c4704a 70%,#2a1f45 70.2%,var(--night) 100%);}
+      radial-gradient(1.5px 1.5px at 12% 14%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 28% 8%,#fff 50%,transparent 51%),
+      radial-gradient(1.5px 1.5px at 72% 12%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 86% 22%,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 52% 5%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 92% 6%,#fff 50%,transparent 51%),
+      radial-gradient(1.5px 1.5px at 6% 30%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 38% 20%,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 64% 28%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 20% 40%,#fff 50%,transparent 51%)}
+  .cloud{position:absolute;height:14px;border-radius:99px;background:#fff;opacity:0;transition:opacity .8s;pointer-events:none;animation:drift 60s linear infinite}
+  .cloud::before{content:"";position:absolute;left:22%;top:-9px;width:45%;height:20px;border-radius:50%;background:inherit}
+  .hero.day .cloud{opacity:.85} .hero.dawn .cloud,.hero.evening .cloud{opacity:.35}
+  @keyframes drift{from{transform:translateX(-30px)}to{transform:translateX(30px)}}
   .skyline{position:absolute;left:0;right:0;top:calc(70% - 64px);height:66px;width:100%;pointer-events:none}
-  .moon{position:absolute;right:12%;top:26px;width:34px;height:34px;border-radius:50%;box-shadow:-8px 5px 0 0 #ffe9a8;transform:rotate(-20deg)}
+  .skyline .wall{fill:var(--wall);transition:fill .8s} .skyline .palm{fill:var(--palm);transition:fill .8s}
+  .orb{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;pointer-events:none;transition:left 1s,top 1s}
+  .orb.sun{background:radial-gradient(circle,#fff6c8 0,#ffd56b 55%,#f5a623 100%);box-shadow:0 0 30px 12px #ffd56b88}
+  .orb.moon{background:transparent;box-shadow:-8px 5px 0 0 #ffe9a8;transform:rotate(-20deg);width:34px;height:34px}
+  .hero.dawn .orb.sun,.hero.evening .orb.sun{background:radial-gradient(circle,#fff0c0 0,#ffb060 60%,#f07a3a 100%);box-shadow:0 0 30px 14px #ff9a5a77}
+  .clock{position:absolute;left:12px;top:calc(10px + env(safe-area-inset-top));z-index:2;background:#0005;border:1px solid #ffffff2a;color:#fff;border-radius:99px;padding:4px 10px;font-size:12px;font-weight:800}
   .hero svg.cat{position:relative;width:220px;height:220px;display:block;margin:0 auto -4px;filter:drop-shadow(0 8px 0 rgba(0,0,0,.3));cursor:pointer}
   .hero h1{position:relative;font-size:40px;margin:0;line-height:1.05;color:var(--gold2);text-shadow:0 3px 0 #0009}
-  .hero .sub{position:relative;opacity:.9;font-weight:700;margin-top:4px}
+  .hero .sub{position:relative;opacity:.95;text-shadow:0 1px 4px #000c;font-weight:700;margin-top:4px}
   .stats{position:relative;display:flex;gap:8px;justify-content:center;margin:12px 0 4px;flex-wrap:wrap;padding:0 10px}
   .pill{background:#0005;border:1px solid #ffffff24;color:var(--stone);border-radius:999px;padding:6px 12px;font-weight:800;font-size:14px;display:flex;gap:6px;align-items:center}
   .pill b{color:var(--gold2)}
@@ -207,11 +222,16 @@
 
   <!-- ===== HERO ===== -->
   <section class="hero">
-    <div class="moon"></div>
+    <div class="stars"></div>
+    <div class="cloud" style="left:8%;top:16%;width:70px"></div>
+    <div class="cloud" style="left:70%;top:30%;width:54px;animation-duration:80s;animation-direction:reverse"></div>
+    <div class="cloud" style="left:40%;top:8%;width:46px;animation-duration:70s"></div>
+    <div class="orb moon" id="orb"></div>
+    <div class="clock" id="clock"></div>
     <svg class="skyline" viewBox="0 0 400 66" preserveAspectRatio="none" aria-hidden="true">
-      <path fill="#2a1f45" d="M0 66 V40 h14 v-6 h6 v6 h8 v-6 h6 v6 h10 V22 h4 v-4 h4 v4 h4 v4 h4 v-4 h4 v4 h4 V40 h12 v-6 h6 v6 h8 v-6 h6 v6 h18
+      <path class="wall" d="M0 66 V40 h14 v-6 h6 v6 h8 v-6 h6 v6 h10 V22 h4 v-4 h4 v4 h4 v4 h4 v-4 h4 v4 h4 V40 h12 v-6 h6 v6 h8 v-6 h6 v6 h18
         V30 c0-12 24-12 24 0 V40 h20 v-6 h6 v6 h8 v-6 h6 v6 h12 V26 h4 v-4 h4 v4 h4 v-4 h4 v4 h4 V40 h20 v-6 h6 v6 h8 v-6 h6 v6 h20 V18 h4 v-5 h5 v5 h5 v-5 h5 v5 h4 V40 h22 v-6 h6 v6 h8 v-6 h6 v6 h16 V66 Z"/>
-      <g fill="#241a3c">
+      <g class="palm">
         <path d="M352 66 V30 l2 0 V66Z"/><path d="M353 30 q-14 -4 -22 4 q12 -6 22 -2 q-8 -10 -20 -10 q14 2 20 8 q2 -12 14 -14 q-10 6 -12 14 q10 -6 22 -2 q-14 0 -22 6 q12 0 18 6 q-10 -4 -20 -6Z"/>
         <path d="M30 66 V36 l2 0 V66Z"/><path d="M31 36 q-12 -3 -18 4 q10 -5 18 -2 q-6 -8 -16 -8 q12 2 16 6 q2 -10 12 -12 q-8 5 -10 12 q8 -5 18 -2 q-12 0 -18 5 q10 0 14 5 q-8 -3 -16 -5Z"/>
       </g>
@@ -364,7 +384,6 @@
       <div><label>Дней</label><input type="number" id="stInjDays" min="0" max="120"></div>
       <div><label>Время</label><input type="time" id="stInjTime"></div>
     </div>
-    <label class="chk"><input type="checkbox" id="stHind">Колоть только в задние лапки</label>
 
     <div class="sec">💊 Антибиотик</div>
     <div class="grid2">
@@ -446,13 +465,13 @@ const PAWS = {
   LF: { acc:'левую переднюю', name:'левая передняя', short:'Л пер.', hind:false },
   RF: { acc:'правую переднюю', name:'правая передняя', short:'П пер.', hind:false }
 };
-const PAW_ORDER = ['LH','RH','LF','RF'];
+const PAW_ORDER = ['LH','RH'];
 
 const DEFAULT_SETTINGS = {
   name: 'Соломон', start: '2026-11-08', days: 40, names: ['Я', 'Она'], wait: 5,
   plan: { drop: ['09:00','15:00','21:00'], oint: ['09:10','12:00','15:10','18:00','21:10'] },
   inj: { start: '2026-11-20', days: 14, time: '10:00', hindOnly: false },
-  abx: { start: '2026-11-20', days: 14, time: '13:00', dose: '1,5 таблетки' },
+  abx: { start: '2026-11-20', days: 21, time: '13:00', dose: '1,5 таблетки' },
   worm: ['2026-11-23','2026-12-07','2027-01-07'], flea: ['2026-12-16'], specTime: '10:00',
   u: 0
 };
@@ -472,6 +491,7 @@ function normalize(s){
   s.settings.abx = Object.assign({}, DEFAULT_SETTINGS.abx, st.abx || {});
   if (!Array.isArray(s.settings.worm)) s.settings.worm = clone(DEFAULT_SETTINGS.worm);
   if (!Array.isArray(s.settings.flea)) s.settings.flea = clone(DEFAULT_SETTINGS.flea);
+  if (!(s.settings.sv >= 2)){ if (s.settings.abx.days === 14) s.settings.abx.days = 21; s.settings.sv = 2; }
   s.marks = s.marks || {}; s.notes = s.notes || {};
   return s;
 }
@@ -559,7 +579,7 @@ function pawLastUse(before){
   return last;
 }
 function suggestPaw(d){
-  const last = pawLastUse(d), allowed = PAW_ORDER.filter(p => !S.settings.inj.hindOnly || PAWS[p].hind);
+  const last = pawLastUse(d), allowed = PAW_ORDER;
   return allowed.slice().sort((a,b) => (last[a] || '0').localeCompare(last[b] || '0') || PAW_ORDER.indexOf(a) - PAW_ORDER.indexOf(b))[0];
 }
 function prevPaw(d){ // paw used on the latest injection day before d
@@ -599,9 +619,6 @@ function buttSVG(state){
   <!-- back -->
   <path d="${fluff(150,112,66,18,7)}" fill="url(#fur)"/>
   <path d="M150 70 v30 M136 74 q-4 14 0 24 M164 74 q4 14 0 24" stroke="#d47f2f" stroke-width="5" stroke-linecap="round" fill="none" opacity=".7"/>
-  <!-- front paws peeking between the hind legs -->
-  ${g('LF', `<ellipse cx="126" cy="256" rx="20" ry="13" fill="#f6c389"/>${toes(126,256,.7)}`, `<ellipse class="ring" cx="126" cy="256" rx="26" ry="19"/>`, 126, 236)}
-  ${g('RF', `<ellipse cx="174" cy="256" rx="20" ry="13" fill="#f6c389"/>${toes(174,256,.7)}`, `<ellipse class="ring" cx="174" cy="256" rx="26" ry="19"/>`, 174, 236)}
   <!-- haunches -->
   <path d="${fluff(106,158,58,18,8)}" fill="url(#fur)"/>
   <path d="${fluff(194,158,58,18,8)}" fill="url(#fur)"/>
@@ -706,7 +723,7 @@ function renderInj(){
   const st = S.settings, m = mark(view, 'inj', 0), t = today();
   const sugg = suggestPaw(view), prev = prevPaw(view);
   const state = {};
-  for (const p of PAW_ORDER) state[p] = { off: st.inj.hindOnly && !PAWS[p].hind };
+  for (const p of PAW_ORDER) state[p] = {};
   if (m && m.paw) state[m.paw].done = true;
   else state[sugg].sugg = true;
   if (prev && !(m && m.paw === prev.paw) && !state[prev.paw].sugg) state[prev.paw].yest = diffDays(prev.date, view) === 1 ? 'вчера' : dm(prev.date);
@@ -840,7 +857,6 @@ const timeAt = (d, v) => { const [h,mi] = v.split(':').map(Number); const nd = p
 
 function onPaw(paw){
   const st = S.settings, t = today();
-  if (st.inj.hindOnly && !PAWS[paw].hind) return toast('Сейчас колем только в задние лапки');
   if (view > t) return toast('Этот день ещё не наступил 🐪');
   const m = mark(view, 'inj', 0);
   if (m){
@@ -950,7 +966,7 @@ function fillSettings(){
   $('#stName').value = st.name; $('#stN0').value = st.names[0]; $('#stN1').value = st.names[1];
   $('#stStart').value = st.start; $('#stDays').value = st.days;
   $('#stDrop').value = st.plan.drop.join(', '); $('#stOint').value = st.plan.oint.join(', '); $('#stWait').value = st.wait;
-  $('#stInjStart').value = st.inj.start; $('#stInjDays').value = st.inj.days; $('#stInjTime').value = st.inj.time; $('#stHind').checked = !!st.inj.hindOnly;
+  $('#stInjStart').value = st.inj.start; $('#stInjDays').value = st.inj.days; $('#stInjTime').value = st.inj.time;
   $('#stAbxStart').value = st.abx.start; $('#stAbxDays').value = st.abx.days; $('#stAbxTime').value = st.abx.time; $('#stAbxDose').value = st.abx.dose;
   $('#stWorm').value = fmtDates(st.worm); $('#stFlea').value = fmtDates(st.flea); $('#stSpecTime').value = st.specTime;
   const g = gh(); $('#ghRepo').value = g.repo || guessRepo(); $('#ghToken').value = g.token || '';
@@ -965,7 +981,7 @@ $('#stSave').onclick = () => {
   st.days = num($('#stDays').value, 1, 120, st.days);
   st.plan = { drop: parseTimes($('#stDrop').value, 3, st.plan.drop), oint: parseTimes($('#stOint').value, 5, st.plan.oint) };
   st.wait = num($('#stWait').value, 0, 60, 0);
-  st.inj = { start: $('#stInjStart').value || st.inj.start, days: num($('#stInjDays').value, 0, 120, st.inj.days), time: $('#stInjTime').value || st.inj.time, hindOnly: $('#stHind').checked };
+  st.inj = { start: $('#stInjStart').value || st.inj.start, days: num($('#stInjDays').value, 0, 120, st.inj.days), time: $('#stInjTime').value || st.inj.time };
   st.abx = { start: $('#stAbxStart').value || st.abx.start, days: num($('#stAbxDays').value, 0, 120, st.abx.days), time: $('#stAbxTime').value || st.abx.time, dose: $('#stAbxDose').value.trim() || st.abx.dose };
   st.worm = parseDates($('#stWorm').value); st.flea = parseDates($('#stFlea').value);
   st.specTime = $('#stSpecTime').value || st.specTime;
@@ -1069,6 +1085,26 @@ $('#ghOff').onclick = () => { localStorage.removeItem(LSG); $('#ghToken').value 
 document.addEventListener('visibilitychange', () => { if (!document.hidden){ render(); syncNow(); } });
 setInterval(() => { if (!document.hidden) syncNow(); }, 30000);
 setInterval(() => { if (!document.hidden && !$('#modal').classList.contains('open') && document.activeElement !== $('#note')) render(); }, 60000);
+
+/* ---------------- sky by Moscow time ---------------- */
+function mskHours(){ const d = new Date(Date.now() + 3*3600e3); return d.getUTCHours() + d.getUTCMinutes()/60; }
+const PHASE_NAME = { night:'ночь', dawn:'рассвет', day:'день', evening:'закат', dusk:'сумерки' };
+function updateSky(){
+  const h = mskHours(), hero = document.querySelector('.hero'), orb = $('#orb');
+  const phase = h >= 6 && h < 8 ? 'dawn' : h >= 8 && h < 15 ? 'day' : h >= 15 && h < 17 ? 'evening' : h >= 17 && h < 19 ? 'dusk' : 'night';
+  hero.classList.remove('night','dawn','day','evening','dusk'); hero.classList.add(phase);
+  const SUNRISE = 6.5, SUNSET = 17;
+  let p, isSun = h >= SUNRISE && h < SUNSET;
+  if (isSun) p = (h - SUNRISE) / (SUNSET - SUNRISE);
+  else p = ((h - SUNSET + 24) % 24) / (24 - SUNSET + SUNRISE);
+  orb.className = 'orb ' + (isSun ? 'sun' : 'moon');
+  orb.style.left = (p < .5 ? 7 + 22 * (p / .5) : 71 + 22 * ((p - .5) / .5)) + '%'; // skip the cat in the middle
+  orb.style.top = (58 - 44 * Math.sin(Math.PI * p)) + '%';
+  const hh = Math.floor(h), mm = Math.round((h - hh) * 60) % 60;
+  $('#clock').textContent = `🕰 ${pad(hh)}:${pad(mm)} МСК · ${PHASE_NAME[phase]}`;
+  const tc = document.querySelector('meta[name=theme-color]'); if (tc) tc.content = phase === 'day' ? '#3d8fd6' : phase === 'dawn' ? '#2b2f6b' : '#171a3a';
+}
+updateSky(); setInterval(updateSky, 30000);
 
 /* ---------------- start ---------------- */
 fillSettings(); render();
