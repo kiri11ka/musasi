@@ -470,7 +470,7 @@ const PAW_ORDER = ['LH','RH'];
 const DEFAULT_SETTINGS = {
   name: 'Соломон', start: '2026-11-08', days: 40, names: ['Я', 'Она'], wait: 5,
   plan: { drop: ['09:00','15:00','21:00'], oint: ['09:10','12:00','15:10','18:00','21:10'] },
-  inj: { start: '2026-11-20', days: 14, time: '10:00', hindOnly: false },
+  inj: { start: '2026-11-20', days: 4, time: '10:00', hindOnly: false },
   abx: { start: '2026-11-20', days: 21, time: '13:00', dose: '1,5 таблетки' },
   worm: ['2026-11-23','2026-12-07','2027-01-07'], flea: ['2026-12-16'], specTime: '10:00',
   u: 0
@@ -492,6 +492,7 @@ function normalize(s){
   if (!Array.isArray(s.settings.worm)) s.settings.worm = clone(DEFAULT_SETTINGS.worm);
   if (!Array.isArray(s.settings.flea)) s.settings.flea = clone(DEFAULT_SETTINGS.flea);
   if (!(s.settings.sv >= 2)){ if (s.settings.abx.days === 14) s.settings.abx.days = 21; s.settings.sv = 2; }
+  if (!(s.settings.sv >= 3)){ if (s.settings.inj.days === 14) s.settings.inj.days = 4; s.settings.sv = 3; }
   s.marks = s.marks || {}; s.notes = s.notes || {};
   return s;
 }
