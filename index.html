@@ -3,102 +3,135 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Капитан Мусаси · судовой журнал лечения</title>
-<meta name="theme-color" content="#13233a">
+<title>Царь Соломон · книга лечения</title>
+<meta name="theme-color" content="#171a3a">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Мусаси">
+<meta name="apple-mobile-web-app-title" content="Соломон">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --sea:#13233a; --sea2:#1c3354; --wave:#2b4b74;
-    --paper:#f6e8c8; --paper2:#ecd7a8; --ink:#3a2a17; --ink2:#7a6040;
-    --gold:#e3a628; --gold2:#ffd26a; --red:#b8412c; --green:#3f8a4f; --cat:#f0aa5c;
+    --night:#171a3a; --indigo:#232756; --tekhelet:#2a4a8a; --purple:#5b2a6e;
+    --stone:#f4e8cc; --stone2:#e6d3a8; --ink:#3b2a18; --ink2:#7a6040;
+    --gold:#d4a017; --gold2:#ffd56b; --red:#a8402a; --cedar:#3f6b3a;
     --r:18px;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0}
-  body{
-    font-family:Nunito,system-ui,sans-serif; color:var(--ink);
-    background:
-      radial-gradient(circle at 20% 0%, #24406a 0, transparent 50%),
-      radial-gradient(circle at 100% 30%, #1d3a5f 0, transparent 40%),
-      var(--sea);
-    min-height:100vh; padding-bottom:40px;
-  }
-  .wrap{max-width:520px;margin:0 auto;padding:12px 14px calc(20px + env(safe-area-inset-bottom))}
-  h1,h2,.title{font-family:"Rubik Dirt",Nunito,sans-serif;font-weight:400;letter-spacing:.5px}
+  body{font-family:Nunito,system-ui,sans-serif;color:var(--ink);background:var(--night);min-height:100vh;padding-bottom:40px}
+  .wrap{max-width:520px;margin:0 auto;padding:0 14px calc(20px + env(safe-area-inset-bottom))}
+  h1,h2,.title{font-family:Forum,Georgia,serif;font-weight:400;letter-spacing:.5px}
   /* ---------- hero ---------- */
-  .hero{position:relative;text-align:center;color:var(--paper);padding:8px 0 0}
-  .hero svg.cat{width:220px;height:220px;display:block;margin:0 auto -6px;filter:drop-shadow(0 8px 0 rgba(0,0,0,.25));cursor:pointer}
-  .hero h1{font-size:34px;margin:0;line-height:1.05;color:var(--gold2);text-shadow:0 3px 0 #0008}
-  .hero .sub{opacity:.85;font-weight:700;margin-top:4px}
-  .stats{display:flex;gap:8px;justify-content:center;margin:12px 0 4px;flex-wrap:wrap}
-  .pill{background:#0004;border:1px solid #fff2;color:var(--paper);border-radius:999px;padding:6px 12px;font-weight:800;font-size:14px;display:flex;gap:6px;align-items:center}
+  .hero{position:relative;text-align:center;color:var(--stone);padding:18px 0 14px;margin:0 -14px;overflow:hidden;
+    background:
+      radial-gradient(1.5px 1.5px at 12% 14%,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 28% 8%,#fff 50%,transparent 51%),
+      radial-gradient(1.5px 1.5px at 72% 12%,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 86% 22%,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 52% 5%,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 92% 6%,#fff 50%,transparent 51%),
+      radial-gradient(1.5px 1.5px at 6% 30%,#fff 50%,transparent 51%),
+      linear-gradient(180deg,#121436 0%,#2a2560 34%,#6b3a6e 56%,#c4704a 70%,#2a1f45 70.2%,var(--night) 100%);}
+  .skyline{position:absolute;left:0;right:0;top:calc(70% - 64px);height:66px;width:100%;pointer-events:none}
+  .moon{position:absolute;right:12%;top:26px;width:34px;height:34px;border-radius:50%;box-shadow:-8px 5px 0 0 #ffe9a8;transform:rotate(-20deg)}
+  .hero svg.cat{position:relative;width:220px;height:220px;display:block;margin:0 auto -4px;filter:drop-shadow(0 8px 0 rgba(0,0,0,.3));cursor:pointer}
+  .hero h1{position:relative;font-size:40px;margin:0;line-height:1.05;color:var(--gold2);text-shadow:0 3px 0 #0009}
+  .hero .sub{position:relative;opacity:.9;font-weight:700;margin-top:4px}
+  .stats{position:relative;display:flex;gap:8px;justify-content:center;margin:12px 0 4px;flex-wrap:wrap;padding:0 10px}
+  .pill{background:#0005;border:1px solid #ffffff24;color:var(--stone);border-radius:999px;padding:6px 12px;font-weight:800;font-size:14px;display:flex;gap:6px;align-items:center}
   .pill b{color:var(--gold2)}
-  .who{display:flex;justify-content:center;gap:6px;margin:10px 0 2px;align-items:center;color:var(--paper);font-weight:700;font-size:14px}
-  .who button{border:0;border-radius:999px;padding:6px 12px;font:inherit;font-weight:800;background:#0004;color:var(--paper);border:1px solid #fff3}
+  .who{position:relative;display:flex;justify-content:center;gap:6px;margin:10px 0 2px;align-items:center;color:var(--stone);font-weight:700;font-size:14px}
+  .who button{border-radius:999px;padding:6px 12px;font:inherit;font-weight:800;background:#0005;color:var(--stone);border:1px solid #fff3}
   .who button.on{background:var(--gold);color:#3a2a10;border-color:var(--gold)}
   /* ---------- cards ---------- */
-  .card{background:var(--paper);border-radius:var(--r);padding:16px;margin:14px 0;position:relative;
-    box-shadow:0 6px 0 #0000003a, inset 0 0 0 2px #c9a86a55, inset 0 0 40px #c9a06a40}
-  .card h2{font-size:22px;margin:0 0 10px;color:var(--ink)}
+  .card{background:var(--stone);border-radius:var(--r);padding:16px;margin:14px 0;position:relative;
+    box-shadow:0 6px 0 #0000004a, inset 0 0 0 2px #c9a86a66, inset 0 0 0 6px var(--stone), inset 0 0 0 7.5px #d4a01755, inset 0 0 40px #c9a06a40}
+  .card h2{font-size:26px;margin:0 0 10px;color:var(--ink)}
   .daynav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
-  .daynav button{width:40px;height:40px;border-radius:12px;border:2px solid var(--ink2);background:transparent;font-size:20px;font-weight:900;color:var(--ink)}
-  .daynav button:disabled{opacity:.25}
+  .daynav .nb{width:40px;height:40px;border-radius:12px;border:2px solid var(--ink2);background:transparent;font-size:20px;font-weight:900;color:var(--ink)}
+  .daynav .nb:disabled{opacity:.25}
   .daynav .lbl{text-align:center;flex:1}
-  .daynav .lbl .t{font-family:"Rubik Dirt",Nunito,sans-serif;font-size:22px}
+  .daynav .lbl .t{font-family:Forum,Georgia,serif;font-size:26px;line-height:1.1}
   .daynav .lbl .d{font-size:13px;color:var(--ink2);font-weight:700}
-  .daynav .lbl .today-link{width:auto;height:auto;border:0;border-radius:0;font-family:Nunito,sans-serif;font-size:12px;color:var(--red);font-weight:800;background:none;text-decoration:underline;cursor:pointer;padding:2px 0 0;white-space:nowrap}
-  .row-h{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 8px}
+  .today-link{font-family:Nunito,sans-serif;font-size:12px;color:var(--red);font-weight:800;background:none;border:0;text-decoration:underline;cursor:pointer;padding:2px 0 0;white-space:nowrap}
+  .courses{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:6px 0 2px}
+  .courses span{font-size:12px;font-weight:800;background:#fff8;border:1.5px solid #c9a86a;border-radius:99px;padding:3px 8px;color:var(--ink2)}
+  .row-h{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 8px}
   .row-h .n{font-weight:900;font-size:17px}
   .row-h .c{font-weight:800;color:var(--ink2);font-size:14px}
   .slots{display:grid;gap:8px}
-  .slots.s3{grid-template-columns:repeat(3,1fr)}
-  .slots.s5{grid-template-columns:repeat(5,1fr)}
+  .slots.s1{grid-template-columns:1fr} .slots.s2{grid-template-columns:repeat(2,1fr)}
+  .slots.s3{grid-template-columns:repeat(3,1fr)} .slots.s5{grid-template-columns:repeat(5,1fr)}
   .slot{border:2.5px dashed #a98a5a;border-radius:14px;min-height:74px;background:#fff6;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    font:inherit;color:var(--ink2);padding:6px 2px;cursor:pointer;transition:transform .12s}
+    font:inherit;color:var(--ink2);padding:6px 4px;cursor:pointer;transition:transform .12s;text-align:center}
   .slot:active{transform:scale(.94)}
   .slot .i{font-size:24px;line-height:1;filter:grayscale(1);opacity:.45}
   .slot .p{font-size:12px;font-weight:800;margin-top:4px}
+  .slot .nm{font-size:13px;font-weight:900;color:var(--ink);margin-top:3px}
   .slot.done{border:2.5px solid var(--gold);background:linear-gradient(160deg,#ffe28f,#f0b53c);color:#4a3008;box-shadow:0 3px 0 #b67d14}
   .slot.done .i{filter:none;opacity:1}
   .slot.done .p{font-size:13px;font-weight:900}
   .slot .w{font-size:11px;font-weight:800;opacity:.8}
   .slot.late:not(.done){border-color:var(--red);color:var(--red)}
+  .slot.big{min-height:84px;flex-direction:row;gap:10px;justify-content:flex-start;padding:10px 14px;text-align:left}
+  .slot.big .i{font-size:30px}
+  .slot.big .tx{display:flex;flex-direction:column}
+  .slot.big .p{margin-top:2px}
+  .slot.special:not(.done){border-color:var(--purple);border-style:solid;background:#efe2f5}
   .slot.pop{animation:pop .5s}
   @keyframes pop{0%{transform:scale(.8)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
-  .bar{height:12px;border-radius:99px;background:#d9c08e;overflow:hidden;margin-top:16px}
+  .bar{height:12px;border-radius:99px;background:#d9c08e;overflow:hidden;margin-top:18px}
   .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:99px;transition:width .4s}
   .msg{margin-top:10px;font-weight:800;text-align:center;min-height:22px}
   .banner{border-radius:14px;padding:10px 12px;font-weight:800;margin-top:12px;display:flex;gap:10px;align-items:center}
-  .banner.wait{background:#13233a;color:var(--paper)}
+  .banner.wait{background:var(--indigo);color:var(--stone)}
   .banner.wait b{color:var(--gold2);font-size:20px;font-variant-numeric:tabular-nums}
   .banner.next{background:#fff7;border:2px solid #c9a86a}
   .banner.next.late{border-color:var(--red);color:var(--red)}
+  /* ---------- injection butt ---------- */
+  .butt{width:100%;max-width:340px;display:block;margin:0 auto;touch-action:manipulation}
+  .paw{cursor:pointer}
+  .paw .ring{fill:none;stroke:transparent;stroke-width:4}
+  .paw.sugg .ring{stroke:var(--gold);stroke-dasharray:7 6;animation:dash 1.2s linear infinite}
+  @keyframes dash{to{stroke-dashoffset:-26}}
+  .paw.done .ring{stroke:var(--gold);fill:#ffd56b66;stroke-width:5}
+  .paw.off{opacity:.3;cursor:not-allowed}
+  .paw:active .pad{filter:brightness(1.1)}
+  .paw .bdg{font:900 11px Nunito,sans-serif;pointer-events:none}
+  .pawmsg{text-align:center;font-weight:800;margin-top:4px}
+  .pawmsg b{color:var(--purple)}
+  .pawhist{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+  .pawhist span{font-size:11.5px;font-weight:800;background:#fff8;border:1.5px solid #c9a86a;border-radius:8px;padding:3px 6px;color:var(--ink2)}
+  .pawhist span.today{background:var(--gold2);border-color:var(--gold);color:#4a3008}
   /* ---------- map ---------- */
-  .map{background:
-      radial-gradient(circle at 30% 30%,#ffffff40,transparent 50%),
-      linear-gradient(#f3dca9,#e8c98a);
+  .map{background:radial-gradient(circle at 30% 30%,#ffffff40,transparent 50%),linear-gradient(#f1d9a6,#e3c086);
     border-radius:14px;padding:6px;box-shadow:inset 0 0 0 2px #a9864c, inset 0 0 30px #a9864c66}
   .map svg{width:100%;height:auto;display:block}
   .isl{cursor:pointer}
   .legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;font-weight:800;color:var(--ink2);margin-top:8px}
   .legend span{display:flex;align-items:center;gap:5px}
   .legend i{width:14px;height:14px;border-radius:50%;display:inline-block}
+  /* ---------- upcoming ---------- */
+  .up div{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px dashed #c9a86a;font-weight:700}
+  .up div:first-child{border-top:0}
+  .up .ic{font-size:22px;width:28px;text-align:center}
+  .up .wh{margin-left:auto;font-size:12.5px;font-weight:900;color:var(--purple);white-space:nowrap}
+  .up .ok{color:var(--cedar)}
   /* ---------- journal ---------- */
   .eyes{display:flex;gap:6px;justify-content:space-between}
   .eyes button{flex:1;border:2px solid #c9a86a;background:#fff6;border-radius:12px;padding:8px 0;font-size:22px;cursor:pointer}
   .eyes button small{display:block;font-size:10px;font-weight:800;color:var(--ink2);font-family:Nunito}
   .eyes button.on{background:var(--gold2);border-color:var(--gold)}
   textarea,input,select{width:100%;font:inherit;font-weight:700;color:var(--ink);background:#fff8;border:2px solid #c9a86a;border-radius:12px;padding:10px}
+  input[type=checkbox]{width:auto;transform:scale(1.4);margin-right:8px}
   textarea{min-height:70px;resize:vertical;margin-top:10px}
   label{font-weight:800;font-size:13px;color:var(--ink2);display:block;margin:10px 0 4px}
+  label.chk{display:flex;align-items:center;color:var(--ink);font-size:14px}
   .hist{margin-top:12px;font-size:14px}
   .hist div{padding:6px 0;border-top:1px dashed #c9a86a}
   /* ---------- photos ---------- */
@@ -108,30 +141,31 @@
   .pol span{position:absolute;bottom:5px;left:0;right:0;text-align:center;font-weight:800;font-size:12px;color:#555}
   .pol:nth-child(1){transform:rotate(-4deg)} .pol:nth-child(2){transform:rotate(3deg)}
   /* ---------- settings ---------- */
-  details.card summary{font-family:"Rubik Dirt",Nunito,sans-serif;font-size:20px;cursor:pointer;list-style:none}
+  details.card summary{font-family:Forum,Georgia,serif;font-size:24px;cursor:pointer;list-style:none}
   details.card summary::-webkit-details-marker{display:none}
+  .sec{font-family:Forum,Georgia,serif;font-size:21px;margin:22px 0 2px;border-top:1px dashed #c9a86a;padding-top:14px}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .btn{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:900;background:var(--sea);color:var(--paper);cursor:pointer;margin-top:10px}
+  .btn{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:900;background:var(--tekhelet);color:var(--stone);cursor:pointer;margin-top:10px}
   .btn.gold{background:var(--gold);color:#3a2a10}
   .btn.ghost{background:transparent;border:2px solid var(--ink2);color:var(--ink)}
   .btn.red{background:var(--red)}
   .note{font-size:12.5px;color:var(--ink2);font-weight:700;line-height:1.4}
-  .sync{position:fixed;top:calc(8px + env(safe-area-inset-top));right:10px;z-index:5;background:#0007;color:var(--paper);border-radius:99px;padding:5px 10px;font-size:12px;font-weight:800;border:1px solid #fff2}
+  .sync{position:fixed;top:calc(8px + env(safe-area-inset-top));right:10px;z-index:5;background:#0007;color:var(--stone);border-radius:99px;padding:5px 10px;font-size:12px;font-weight:800;border:1px solid #fff2}
   /* ---------- modal & toast ---------- */
   .modal{position:fixed;inset:0;background:#0009;display:none;align-items:flex-end;justify-content:center;z-index:20}
   .modal.open{display:flex}
-  .sheet{background:var(--paper);width:100%;max-width:520px;border-radius:22px 22px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));animation:up .25s}
+  .sheet{background:var(--stone);width:100%;max-width:520px;border-radius:22px 22px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));animation:up .25s}
   @keyframes up{from{transform:translateY(100%)}}
-  .sheet h3{font-family:"Rubik Dirt",Nunito,sans-serif;font-weight:400;font-size:24px;margin:0 0 6px}
+  .sheet h3{font-family:Forum,Georgia,serif;font-weight:400;font-size:26px;margin:0 0 6px}
   .sheet .acts{display:flex;gap:8px;flex-wrap:wrap}
   .sheet .acts .btn{flex:1}
-  .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(150%);background:var(--sea);color:var(--paper);
+  .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(150%);background:var(--indigo);color:var(--stone);
     border:2px solid var(--gold);padding:12px 18px;border-radius:16px;font-weight:900;z-index:30;transition:transform .3s;max-width:92vw;text-align:center}
-  .toast.show{transform:translateX(-50%) translateY(0)}
+  .toast{visibility:hidden}.toast.show{visibility:visible;transform:translateX(-50%) translateY(0)}
   .coin{position:fixed;z-index:40;font-size:28px;pointer-events:none;animation:coin 1s ease-in forwards}
   @keyframes coin{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.5) rotate(360deg)}}
   /* ---- cat idle animation ---- */
-  .cat .head,.cat .ear,.cat .blink,.cat .whL,.cat .whR,.cat .pupil{transform-box:fill-box}
+  .cat .head,.cat .ear,.cat .blink,.cat .whL,.cat .whR,.cat .pupil,.cat .crown{transform-box:fill-box}
   .cat{animation:bob 3.2s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
   .cat .head{transform-origin:50% 90%;animation:tilt 6s ease-in-out infinite}
@@ -146,12 +180,17 @@
   .cat .whR{transform-origin:0% 50%;animation:whR 3s ease-in-out infinite}
   @keyframes whL{0%,100%{transform:rotate(0)}50%{transform:rotate(5deg)}}
   @keyframes whR{0%,100%{transform:rotate(0)}50%{transform:rotate(-5deg)}}
+  .cat .gem{animation:gem 2.4s ease-in-out infinite}
+  .cat .gem:nth-of-type(2){animation-delay:.8s} .cat .gem:nth-of-type(3){animation-delay:1.6s}
+  @keyframes gem{0%,100%{opacity:1}50%{opacity:.55}}
   .cat .pupil{transition:transform .25s ease-out}
   .cat.hop{animation:hop .7s cubic-bezier(.3,1.6,.5,1)}
   @keyframes hop{0%{transform:translateY(0) scale(1,1)}20%{transform:translateY(4px) scale(1.06,.92)}50%{transform:translateY(-26px) scale(.96,1.06) rotate(-4deg)}80%{transform:translateY(2px) scale(1.04,.96)}100%{transform:translateY(0)}}
   .cat.dance{animation:dance 1.4s ease-in-out}
   @keyframes dance{0%,100%{transform:rotate(0)}15%{transform:translateY(-18px) rotate(-12deg)}35%{transform:translateY(0) rotate(10deg)}55%{transform:translateY(-14px) rotate(-8deg)}75%{transform:rotate(6deg)}}
-  @media (prefers-reduced-motion:reduce){.cat,.cat *{animation:none!important}}
+  .butt .tail{transform-box:fill-box;transform-origin:0% 100%;animation:wag 2.6s ease-in-out infinite}
+  @keyframes wag{0%,100%{transform:rotate(0)}50%{transform:rotate(-7deg)}}
+  @media (prefers-reduced-motion:reduce){.cat,.cat *,.butt *{animation:none!important}}
   #patch{transition:transform .6s cubic-bezier(.5,-0.4,.5,1.4);transform-origin:100px 132px}
   #patch.peek{transform:translate(-6px,-34px) rotate(-25deg)}
   #patch.gone{transform:translate(-80px,240px) rotate(-200deg);transition:transform 1.4s ease-in}
@@ -168,36 +207,43 @@
 
   <!-- ===== HERO ===== -->
   <section class="hero">
-    <svg class="cat" id="cat" viewBox="0 0 240 240" aria-label="Мультяшный кот-пират Мусаси">
-      <!-- fluffy body -->
-      <ellipse cx="120" cy="222" rx="78" ry="34" fill="#e89a48"/>
-      <path d="M50 214 q8-14 16 0 q8-14 16 0 q8-14 16 0 q8-14 16 0 q8-14 16 0 q8-14 16 0 q8-14 16 0 q8-14 16 0" fill="none" stroke="#f6c389" stroke-width="5" stroke-linecap="round"/>
+    <div class="moon"></div>
+    <svg class="skyline" viewBox="0 0 400 66" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#2a1f45" d="M0 66 V40 h14 v-6 h6 v6 h8 v-6 h6 v6 h10 V22 h4 v-4 h4 v4 h4 v4 h4 v-4 h4 v4 h4 V40 h12 v-6 h6 v6 h8 v-6 h6 v6 h18
+        V30 c0-12 24-12 24 0 V40 h20 v-6 h6 v6 h8 v-6 h6 v6 h12 V26 h4 v-4 h4 v4 h4 v-4 h4 v4 h4 V40 h20 v-6 h6 v6 h8 v-6 h6 v6 h20 V18 h4 v-5 h5 v5 h5 v-5 h5 v5 h4 V40 h22 v-6 h6 v6 h8 v-6 h6 v6 h16 V66 Z"/>
+      <g fill="#241a3c">
+        <path d="M352 66 V30 l2 0 V66Z"/><path d="M353 30 q-14 -4 -22 4 q12 -6 22 -2 q-8 -10 -20 -10 q14 2 20 8 q2 -12 14 -14 q-10 6 -12 14 q10 -6 22 -2 q-14 0 -22 6 q12 0 18 6 q-10 -4 -20 -6Z"/>
+        <path d="M30 66 V36 l2 0 V66Z"/><path d="M31 36 q-12 -3 -18 4 q10 -5 18 -2 q-6 -8 -16 -8 q12 2 16 6 q2 -10 12 -12 q-8 5 -10 12 q8 -5 18 -2 q-12 0 -18 5 q10 0 14 5 q-8 -3 -16 -5Z"/>
+      </g>
+    </svg>
+    <svg class="cat" id="cat" viewBox="0 0 240 240" aria-label="Мультяшный кот — царь Соломон">
+      <!-- royal robe -->
+      <ellipse cx="120" cy="224" rx="82" ry="36" fill="#5b2a6e"/>
+      <path d="M44 214 q10 -10 20 0 q10 -10 20 0 q10 -10 20 0 q10 -10 20 0 q10 -10 20 0 q10 -10 20 0 q10 -10 20 0 q10 -10 18 0" fill="none" stroke="#d4a017" stroke-width="4" stroke-linecap="round"/>
+      <path d="M120 200 L104 240 M120 200 L136 240" stroke="#d4a017" stroke-width="3"/>
+      <circle cx="120" cy="212" r="5" fill="#2a4a8a" stroke="#ffd56b" stroke-width="2"/>
       <!-- ears -->
       <g class="ear earL"><path d="M40 120 L34 52 L92 86 Z" fill="#e89a48"/>
       <path d="M47 108 L45 68 L80 89 Z" fill="#f7b6a6"/></g>
       <g class="ear earR"><path d="M200 120 L206 52 L148 86 Z" fill="#e89a48"/>
       <path d="M193 108 L195 68 L160 89 Z" fill="#f7b6a6"/></g>
       <g class="head">
-      <!-- head with fluff -->
       <path d="M120 66 C170 66 196 100 196 138 c6 6 6 14 0 18 c2 8 -2 14 -8 16 c-4 22 -34 40 -68 40 s-64-18-68-40 c-6-2-10-8-8-16 c-6-4-6-12 0-18 C44 100 70 66 120 66 Z" fill="#f0aa5c"/>
-      <!-- forehead stripes -->
       <path d="M120 92 v20 M106 94 q-2 10 2 18 M134 94 q2 10 -2 18" stroke="#d47f2f" stroke-width="5" stroke-linecap="round" fill="none"/>
-      <!-- cheeks fluff -->
       <path d="M54 160 l-14 4 l12 4 l-10 8 l14 -2" fill="#f6c389"/>
       <path d="M186 160 l14 4 l-12 4 l10 8 l-14 -2" fill="#f6c389"/>
-      <!-- muzzle -->
+      <!-- wise little beard -->
+      <path d="M104 194 q16 12 32 0 q2 14 -6 24 q2 -6 -4 -8 q-2 8 -6 12 q-4 -4 -6 -12 q-6 2 -4 8 q-8 -10 -6 -24Z" fill="#fbe0bd"/>
       <ellipse cx="106" cy="170" rx="18" ry="14" fill="#fbe0bd"/>
       <ellipse cx="134" cy="170" rx="18" ry="14" fill="#fbe0bd"/>
       <path d="M112 156 h16 l-8 10 Z" fill="#f08a96" stroke="#c96470" stroke-width="2" stroke-linejoin="round"/>
       <path d="M120 166 v6 q-6 8 -13 3 M120 172 q6 8 13 3" stroke="#7a4a2a" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <!-- whiskers -->
       <g stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".9">
         <path class="whL" d="M88 168 L48 160 M88 174 L46 178"/><path class="whR" d="M152 168 L192 160 M152 174 L194 178"/>
       </g>
-      <!-- blush -->
       <ellipse cx="78" cy="160" rx="10" ry="6" fill="#f08a6a" opacity=".45"/>
       <ellipse cx="162" cy="160" rx="10" ry="6" fill="#f08a6a" opacity=".45"/>
-      <!-- right (healthy) eye — viewer's right -->
+      <!-- healthy eye -->
       <g class="blink">
         <ellipse cx="148" cy="134" rx="16" ry="18" fill="#5b3a12"/>
         <ellipse cx="148" cy="136" rx="13" ry="15" fill="#c08a2c"/>
@@ -205,32 +251,29 @@
         <circle cx="153" cy="128" r="5" fill="#fff"/><circle cx="143" cy="143" r="2.5" fill="#fff"/></g>
         <path d="M131 118 q17 -8 34 2" stroke="#7a4a2a" stroke-width="3" fill="none" stroke-linecap="round"/>
       </g>
-      <!-- eye-patch on viewer's left (sick eye) -->
+      <!-- royal eye bandage on the sick eye -->
       <g id="patch">
-        <path d="M60 104 L186 78" stroke="#1b1b1b" stroke-width="5" stroke-linecap="round"/>
-        <path d="M78 140 L52 150" stroke="#1b1b1b" stroke-width="5" stroke-linecap="round"/>
-        <path d="M76 122 q24 -14 48 0 q2 26 -24 34 q-26 -6 -24 -34 Z" fill="#1b1b1b"/>
-        <path d="M84 126 q16 -8 32 0" stroke="#444" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <!-- tiny skull on patch -->
-        <circle cx="100" cy="137" r="5" fill="#e8e0cc"/><rect x="97" y="140" width="6" height="4" rx="1" fill="#e8e0cc"/>
-        <circle cx="98.2" cy="136.5" r="1.3" fill="#1b1b1b"/><circle cx="101.8" cy="136.5" r="1.3" fill="#1b1b1b"/>
+        <path d="M60 104 L186 80" stroke="#d4a017" stroke-width="4" stroke-linecap="round"/>
+        <path d="M78 140 L52 150" stroke="#d4a017" stroke-width="4" stroke-linecap="round"/>
+        <path d="M76 122 q24 -14 48 0 q2 26 -24 34 q-26 -6 -24 -34 Z" fill="#2a4a8a" stroke="#ffd56b" stroke-width="2.5"/>
+        <path d="M84 128 q16 -7 32 0" stroke="#ffd56b" stroke-width="1.6" fill="none" stroke-dasharray="2 3"/>
+        <circle cx="100" cy="139" r="4.5" fill="#ffd56b"/><circle cx="100" cy="139" r="2" fill="#a8402a"/>
       </g>
-      <!-- recovered eye (shown when patch lifts) -->
       <g id="eyeL"><g class="blink">
         <ellipse cx="96" cy="134" rx="16" ry="18" fill="#5b3a12"/>
         <ellipse cx="96" cy="136" rx="13" ry="15" fill="#c08a2c"/>
         <g class="pupil"><ellipse cx="96" cy="137" rx="7" ry="11" fill="#1a0f05"/>
         <circle cx="101" cy="128" r="5" fill="#fff"/></g></g>
       </g>
-      <!-- tricorn hat -->
-      <path d="M58 86 C70 30 170 30 182 86 Z" fill="#2a1c12"/>
-      <path d="M26 84 C60 60 90 92 120 70 C150 92 180 60 214 84 C196 100 164 96 120 94 C76 96 44 100 26 84 Z" fill="#3a2718"/>
-      <path d="M26 84 C60 60 90 92 120 70 C150 92 180 60 214 84" fill="none" stroke="#e3a628" stroke-width="4" stroke-linecap="round"/>
-      <!-- skull & bones on hat -->
-      <g transform="translate(120 56)">
-        <path d="M-14 10 L14 -2 M-14 -2 L14 10" stroke="#f3ecd8" stroke-width="4.5" stroke-linecap="round"/>
-        <circle cx="0" cy="-4" r="9" fill="#f3ecd8"/><rect x="-5" y="2" width="10" height="7" rx="2" fill="#f3ecd8"/>
-        <circle cx="-3.5" cy="-5" r="2.4" fill="#2a1c12"/><circle cx="3.5" cy="-5" r="2.4" fill="#2a1c12"/>
+      <!-- crown -->
+      <g class="crown">
+        <path d="M66 92 L60 40 L84 62 L100 30 L120 58 L140 30 L156 62 L180 40 L174 92 Z" fill="#e3b02a" stroke="#a87810" stroke-width="3" stroke-linejoin="round"/>
+        <rect x="64" y="80" width="112" height="16" rx="5" fill="#c99512" stroke="#a87810" stroke-width="2.5"/>
+        <circle cx="60" cy="38" r="5" fill="#ffd56b"/><circle cx="100" cy="28" r="5" fill="#ffd56b"/><circle cx="140" cy="28" r="5" fill="#ffd56b"/><circle cx="180" cy="38" r="5" fill="#ffd56b"/>
+        <circle class="gem" cx="120" cy="70" r="7" fill="#a8402a" stroke="#ffd56b" stroke-width="2"/>
+        <circle class="gem" cx="92" cy="88" r="4.5" fill="#2a4a8a"/><circle class="gem" cx="148" cy="88" r="4.5" fill="#2a4a8a"/>
+        <circle cx="120" cy="88" r="4.5" fill="#3f8a4f"/>
+        <path d="M74 66 l4 10 M166 66 l-4 10" stroke="#fff3c4" stroke-width="3" stroke-linecap="round"/>
       </g>
       </g>
       <!-- paws -->
@@ -238,81 +281,108 @@
       <ellipse cx="148" cy="214" rx="16" ry="11" fill="#f6c389"/>
       <path d="M86 210 v6 M92 209 v7 M98 210 v6 M142 210 v6 M148 209 v7 M154 210 v6" stroke="#d48a45" stroke-width="2" stroke-linecap="round"/>
     </svg>
-    <h1 id="title">Капитан Мусаси</h1>
-    <div class="sub" id="sub">Курс лечения глаза</div>
-    <div class="stats">
-      <div class="pill">🗓 День <b id="sDay">1</b>/<span id="sDays">40</span></div>
-      <div class="pill">🪙 <b id="sCoins">0</b> дублонов</div>
-      <div class="pill">💰 <b id="sChests">0</b> сундуков</div>
-    </div>
+    <h1 id="title">Царь Соломон</h1>
+    <div class="sub" id="sub">Книга лечения</div>
+    <div class="stats" id="stats"></div>
     <div class="who">Отмечает: <span id="whoBtns"></span></div>
   </section>
 
   <!-- ===== DAY ===== -->
   <section class="card" id="dayCard">
     <div class="daynav">
-      <button id="prev" aria-label="Предыдущий день">‹</button>
+      <button class="nb" id="prev" aria-label="Предыдущий день">‹</button>
       <div class="lbl"><div class="t" id="dTitle">Сегодня</div><div class="d" id="dDate"></div>
         <button class="today-link" id="goToday" hidden>вернуться к сегодня</button></div>
-      <button id="next" aria-label="Следующий день">›</button>
+      <button class="nb" id="next" aria-label="Следующий день">›</button>
     </div>
+    <div class="courses" id="courses"></div>
     <div id="banners"></div>
-    <div class="row-h"><span class="n">💧 Капли</span><span class="c" id="cDrop">0/3</span></div>
-    <div class="slots s3" id="slotsDrop"></div>
-    <div class="row-h"><span class="n">🧴 Мазь за веко</span><span class="c" id="cOint">0/5</span></div>
-    <div class="slots s5" id="slotsOint"></div>
+    <div id="tasks"></div>
     <div class="bar"><i id="bar" style="width:0"></i></div>
     <div class="msg" id="dayMsg"></div>
   </section>
 
+  <!-- ===== UPCOMING ===== -->
+  <section class="card">
+    <h2>📅 Ближайшие указы</h2>
+    <div class="up" id="upcoming"></div>
+  </section>
+
   <!-- ===== MAP ===== -->
   <section class="card">
-    <h2>🗺 Карта сокровищ</h2>
+    <h2>🐪 Путь к сокровищнице</h2>
     <div class="map"><svg id="map" viewBox="0 0 360 250"></svg></div>
     <div class="legend">
-      <span><i style="background:#f0b53c"></i>весь день</span>
+      <span><i style="background:#f0b53c"></i>всё сделано</span>
       <span><i style="background:linear-gradient(90deg,#f0b53c 50%,#d9c08e 50%)"></i>частично</span>
       <span><i style="background:#8d8d8d"></i>пропуск</span>
       <span><i style="background:#fff;border:2px solid #a9864c"></i>впереди</span>
     </div>
-    <p class="note" style="margin:8px 0 0">Нажми на остров, чтобы открыть этот день.</p>
+    <p class="note" style="margin:8px 0 0">Нажми на камень, чтобы открыть этот день. 🪱 и 🛡️ — дни таблеток от глистов и блох.</p>
   </section>
 
   <!-- ===== JOURNAL ===== -->
   <section class="card">
-    <h2>📜 Бортовой журнал</h2>
+    <h2>📜 Книга дней</h2>
     <div class="note" id="jDate" style="margin-bottom:8px"></div>
     <div class="eyes" id="eyes"></div>
-    <textarea id="note" placeholder="Как глаз сегодня? Слезится, открывает, выделения…"></textarea>
+    <textarea id="note" placeholder="Как глаз сегодня? Как перенёс укол? Ест ли таблетки…"></textarea>
     <div class="hist" id="hist"></div>
   </section>
 
   <!-- ===== PHOTOS ===== -->
   <section class="card">
-    <h2>🏴‍☠️ Настоящий капитан</h2>
+    <h2>🦁 Настоящий царь</h2>
     <div class="pols">
-      <div class="pol"><img src="photo-hands.jpg" alt="Мусаси на руках"><span>на вахте</span></div>
-      <div class="pol"><img src="photo-sleep.jpg" alt="Мусаси спит"><span>отбой после мази</span></div>
+      <div class="pol"><img src="photo-hands.jpg" alt="Соломон на руках"><span>на руках у подданных</span></div>
+      <div class="pol"><img src="photo-sleep.jpg" alt="Соломон спит"><span>царский сон</span></div>
     </div>
   </section>
 
   <!-- ===== SETTINGS ===== -->
   <details class="card" id="settings">
-    <summary>⚙️ Настройки корабля</summary>
+    <summary>⚙️ Царские указы (настройки)</summary>
+    <div class="grid2">
+      <div><label>Имя царя</label><input id="stName"></div>
+      <div></div>
+      <div><label>Лекарь 1</label><input id="stN0"></div>
+      <div><label>Лекарь 2</label><input id="stN1"></div>
+    </div>
+
+    <div class="sec">👁 Глаз: капли и мазь</div>
     <div class="grid2">
       <div><label>Начало курса</label><input type="date" id="stStart"></div>
-      <div><label>Дней в курсе</label><input type="number" id="stDays" min="1" max="120"></div>
-      <div><label>Юнга 1</label><input id="stN0"></div>
-      <div><label>Юнга 2</label><input id="stN1"></div>
+      <div><label>Дней</label><input type="number" id="stDays" min="1" max="120"></div>
     </div>
-    <label>План капель (через запятую)</label><input id="stDrop">
-    <label>План мази (через запятую)</label><input id="stOint">
+    <label>План капель (3 времени через запятую)</label><input id="stDrop">
+    <label>План мази (5 времён через запятую)</label><input id="stOint">
     <label>Пауза между каплями и мазью, минут</label><input type="number" id="stWait" min="0" max="60">
-    <button class="btn gold" id="stSave">Сохранить</button>
 
-    <h2 style="margin-top:22px;font-size:20px">☁️ Синхронизация двух телефонов</h2>
-    <p class="note">Отметки сохраняются в файл <code>data.json</code> в вашем репозитории на GitHub, поэтому оба телефона видят одно и то же. Нужно один раз вставить токен на каждом телефоне. Токен хранится только в этом браузере.</p>
-    <label>Репозиторий (логин/название)</label><input id="ghRepo" placeholder="login/musashi" autocapitalize="off" autocorrect="off">
+    <div class="sec">💉 Уколы</div>
+    <div class="grid2">
+      <div><label>Начало</label><input type="date" id="stInjStart"></div>
+      <div><label>Дней</label><input type="number" id="stInjDays" min="0" max="120"></div>
+      <div><label>Время</label><input type="time" id="stInjTime"></div>
+    </div>
+    <label class="chk"><input type="checkbox" id="stHind">Колоть только в задние лапки</label>
+
+    <div class="sec">💊 Антибиотик</div>
+    <div class="grid2">
+      <div><label>Начало</label><input type="date" id="stAbxStart"></div>
+      <div><label>Дней</label><input type="number" id="stAbxDays" min="0" max="120"></div>
+      <div><label>Время</label><input type="time" id="stAbxTime"></div>
+      <div><label>Доза</label><input id="stAbxDose"></div>
+    </div>
+
+    <div class="sec">🪱 Глисты и 🛡️ блохи</div>
+    <label>Даты от глистов (ДД.ММ через запятую)</label><input id="stWorm" placeholder="23.11, 07.12, 07.01">
+    <label>Даты от блох (ДД.ММ через запятую)</label><input id="stFlea" placeholder="16.12">
+    <label>Время для этих таблеток</label><input type="time" id="stSpecTime">
+    <button class="btn gold" id="stSave" style="width:100%">Сохранить указы</button>
+
+    <div class="sec">☁️ Синхронизация двух телефонов</div>
+    <p class="note">Отметки сохраняются в файл <code>data.json</code> в вашем репозитории на GitHub, поэтому оба телефона видят одно и то же. Токен хранится только в этом браузере.</p>
+    <label>Репозиторий (логин/название)</label><input id="ghRepo" placeholder="login/musasi" autocapitalize="off" autocorrect="off">
     <label>Токен GitHub</label><input id="ghToken" type="password" placeholder="github_pat_…" autocapitalize="off" autocorrect="off">
     <div class="grid2">
       <button class="btn" id="ghSave">Подключить</button>
@@ -324,8 +394,8 @@
       <ol class="note">
         <li>GitHub → Settings → Developer settings → Personal access tokens → <b>Fine-grained tokens</b> → Generate new token.</li>
         <li>Repository access: <b>Only select repositories</b> → выбрать этот репозиторий.</li>
-        <li>Permissions → Repository → <b>Contents: Read and write</b>.</li>
-        <li>Срок действия поставь с запасом на курс (например, 90 дней), скопируй токен сюда.</li>
+        <li>Permissions → Add permissions → <b>Contents: Read and write</b>.</li>
+        <li>Срок действия с запасом на лечение, скопируй токен сюда.</li>
       </ol>
     </details>
     <div class="grid2">
@@ -335,7 +405,7 @@
     <input type="file" id="impFile" accept="application/json" hidden>
   </details>
 
-  <footer>Сделано для капитана Мусаси 🧡 Йо-хо-хо и бутылка физраствора</footer>
+  <footer>Сделано для царя Соломона 🧡 И это пройдёт</footer>
 </div>
 
 <div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
@@ -345,6 +415,7 @@
 (() => {
 'use strict';
 const $ = s => document.querySelector(s);
+// keys kept from the first version so all earlier progress stays
 const LS = 'musashi.state.v1', LSG = 'musashi.gh.v1', LSME = 'musashi.me.v1';
 const pad = n => String(n).padStart(2,'0');
 const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
@@ -352,60 +423,115 @@ const parseD = s => { const [y,m,d] = s.split('-').map(Number); return new Date(
 const addDays = (s, n) => { const d = parseD(s); d.setDate(d.getDate()+n); return ymd(d); };
 const diffDays = (a, b) => Math.round((parseD(b) - parseD(a)) / 864e5);
 const hm = iso => { const d = new Date(iso); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const nowHM = () => { const d = new Date(); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
 const today = () => ymd(new Date());
 const MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const MSHORT = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
 const WD = ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
 const human = s => { const d = parseD(s); return `${d.getDate()} ${MONTHS[d.getMonth()]}, ${WD[d.getDay()]}`; };
-const N = { drop: 3, oint: 5 };
-const LABEL = { drop: 'капли', oint: 'мазь' };
-const ICON = { drop: '💧', oint: '🧴' };
+const dm = s => { const d = parseD(s); return `${pad(d.getDate())}.${pad(d.getMonth()+1)}`; };
+const dayWord = n => { const a = Math.abs(n) % 100, b = a % 10; return (a > 10 && a < 20) ? 'дней' : b === 1 ? 'день' : (b >= 2 && b <= 4) ? 'дня' : 'дней'; };
+
+const META = {
+  drop: { icon:'💧', label:'Капли', one:'капли' },
+  oint: { icon:'🧴', label:'Мазь за веко', one:'мазь' },
+  inj:  { icon:'💉', label:'Укол', one:'укол' },
+  abx:  { icon:'💊', label:'Антибиотик', one:'антибиотик' },
+  worm: { icon:'🪱', label:'От глистов', one:'таблетка от глистов' },
+  flea: { icon:'🛡️', label:'От блох', one:'средство от блох' }
+};
+const PAWS = {
+  LH: { acc:'левую заднюю', name:'левая задняя', short:'Л зад.', hind:true },
+  RH: { acc:'правую заднюю', name:'правая задняя', short:'П зад.', hind:true },
+  LF: { acc:'левую переднюю', name:'левая передняя', short:'Л пер.', hind:false },
+  RF: { acc:'правую переднюю', name:'правая передняя', short:'П пер.', hind:false }
+};
+const PAW_ORDER = ['LH','RH','LF','RF'];
 
 const DEFAULT_SETTINGS = {
-  start: '2026-11-10', days: 40, names: ['Я', 'Она'], wait: 5,
+  name: 'Соломон', start: '2026-11-08', days: 40, names: ['Я', 'Она'], wait: 5,
   plan: { drop: ['09:00','15:00','21:00'], oint: ['09:10','12:00','15:10','18:00','21:10'] },
+  inj: { start: '2026-11-20', days: 14, time: '10:00', hindOnly: false },
+  abx: { start: '2026-11-20', days: 14, time: '13:00', dose: '1,5 таблетки' },
+  worm: ['2026-11-23','2026-12-07','2027-01-07'], flea: ['2026-12-16'], specTime: '10:00',
   u: 0
 };
+const clone = o => JSON.parse(JSON.stringify(o));
 
 /* ---------------- state ---------------- */
-function blank(){ return { v:1, settings: JSON.parse(JSON.stringify(DEFAULT_SETTINGS)), marks:{}, notes:{} }; }
+function blank(){ return { v:1, settings: clone(DEFAULT_SETTINGS), marks:{}, notes:{} }; }
 function load(){
   try { const s = JSON.parse(localStorage.getItem(LS)); if (s && s.v === 1) return normalize(s); } catch(e){}
   return blank();
 }
 function normalize(s){
-  s.settings = Object.assign(JSON.parse(JSON.stringify(DEFAULT_SETTINGS)), s.settings || {});
-  s.settings.plan = Object.assign({}, DEFAULT_SETTINGS.plan, s.settings.plan || {});
+  const d = clone(DEFAULT_SETTINGS), st = s.settings || {};
+  s.settings = Object.assign(d, st);
+  s.settings.plan = Object.assign({}, DEFAULT_SETTINGS.plan, st.plan || {});
+  s.settings.inj = Object.assign({}, DEFAULT_SETTINGS.inj, st.inj || {});
+  s.settings.abx = Object.assign({}, DEFAULT_SETTINGS.abx, st.abx || {});
+  if (!Array.isArray(s.settings.worm)) s.settings.worm = clone(DEFAULT_SETTINGS.worm);
+  if (!Array.isArray(s.settings.flea)) s.settings.flea = clone(DEFAULT_SETTINGS.flea);
   s.marks = s.marks || {}; s.notes = s.notes || {};
   return s;
 }
 let S = load();
 let me = Number(localStorage.getItem(LSME) || 0);
-let view = clampDay(today());
 const save = () => { try { localStorage.setItem(LS, JSON.stringify(S)); } catch(e){} scheduleSync(); };
 
-function clampDay(d){
-  const st = S.settings.start, end = addDays(st, S.settings.days - 1);
-  if (d < st) return st; if (d > end) return end; return d;
+const inCourse = (d, start, days) => days > 0 && d >= start && d <= addDays(start, days - 1);
+function tasksFor(d){
+  const st = S.settings, T = [];
+  if (inCourse(d, st.start, st.days)) { T.push({type:'drop', n:3}); T.push({type:'oint', n:5}); }
+  if (inCourse(d, st.inj.start, st.inj.days)) T.push({type:'inj', n:1});
+  if (inCourse(d, st.abx.start, st.abx.days)) T.push({type:'abx', n:1});
+  if (st.worm.includes(d)) T.push({type:'worm', n:1});
+  if (st.flea.includes(d)) T.push({type:'flea', n:1});
+  return T;
 }
+function planTime(type, i){
+  const st = S.settings;
+  if (type === 'drop' || type === 'oint') return st.plan[type][i] || '';
+  if (type === 'inj') return st.inj.time; if (type === 'abx') return st.abx.time;
+  return st.specTime;
+}
+function range(){
+  const st = S.settings; let a = st.start, b = addDays(st.start, st.days - 1);
+  for (const c of [st.inj, st.abx]) if (c.days > 0){ if (c.start < a) a = c.start; const e = addDays(c.start, c.days - 1); if (e > b) b = e; }
+  for (const x of [...st.worm, ...st.flea]){ if (x < a) a = x; if (x > b) b = x; }
+  return [a, b];
+}
+function clampDay(d){ const [a,b] = range(); return d < a ? a : d > b ? b : d; }
+let view = clampDay(today());
+
 const key = (d, t, i) => `${d}|${t}|${i}`;
 const mark = (d, t, i) => { const m = S.marks[key(d,t,i)]; return m && !m.del ? m : null; };
-const countDay = d => { let a = 0, b = 0; for (let i=0;i<N.drop;i++) if (mark(d,'drop',i)) a++; for (let i=0;i<N.oint;i++) if (mark(d,'oint',i)) b++; return {drop:a, oint:b, all:a+b}; };
-const TOTAL = N.drop + N.oint;
+function countDay(d){
+  let done = 0, total = 0;
+  for (const t of tasksFor(d)) for (let i=0;i<t.n;i++){ total++; if (mark(d, t.type, i)) done++; }
+  return { done, total };
+}
+const countType = (d, type, n) => { let c = 0; for (let i=0;i<n;i++) if (mark(d,type,i)) c++; return c; };
 
 /* ---------------- phrases ---------------- */
 const PH = {
-  drop: ['Йо-хо-хо, глаз промыт!','Капля в цель, капитан!','Палуба чиста, глаз тоже!','Шторм в глазу утихает!','Отличный выстрел, юнга!'],
-  oint: ['Мазь заложена, курс на выздоровление!','Глаз под защитой, как сокровище в сундуке!','Капитан доволен, юнга получает дублон!','Так держать, морской волк!','Ещё одна миля к здоровому глазу!'],
-  dayDone: ['🏆 День закрыт! Сундук в трюме!','🏆 Все процедуры сделаны. Капитан спит спокойно!','🏆 Йо-хо-хо! Остров покорён!'],
-  peek: ['Рано снимать повязку, юнга!','Повязку не трогать — приказ капитана!','Сначала доплыви до сокровища!']
+  drop: ['Мудро закапано!','Капля мудрости — точно в глаз!','Царь доволен лекарем!','И это пройдёт — и глаз пройдёт!','Шекель в казну!'],
+  oint: ['Мазь заложена — царский глаз под защитой!','Всему своё время — и время врачевать.','Мудрость — в постоянстве!','Ещё шаг к здоровому глазу!','Лекарь достоин награды!'],
+  inj:  ['Укол сделан. Царь храбрее льва!','Храбрый царь даже не мяукнул!','Лапка выбрана мудро!','Царская лапка — царское терпение!'],
+  abx:  ['Полторы таблетки — царская доза!','Антибиотик принят, микробы изгнаны из царства!','Мудрый царь лечится вовремя!'],
+  worm: ['Глисты изгнаны из царства!','Царство очищено!'],
+  flea: ['Блохам вход во дворец закрыт!','Ни одна блоха не пройдёт к трону!'],
+  dayDone: ['👑 День исполнен! Сокровищница пополнилась!','👑 Все указы выполнены. Царь спит спокойно!','👑 Мудрый день, лекари!'],
+  peek: ['Всему своё время — повязку снимать рано!','Царь велит: повязку не трогать!','Терпение — сестра мудрости!']
 };
 const pick = a => a[Math.floor(Math.random()*a.length)];
 
 /* ---------------- UI helpers ---------------- */
 let toastT;
-function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(()=>el.classList.remove('show'), 2600); }
+function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(()=>el.classList.remove('show'), 2800); }
 function coinFx(el){
-  const r = el.getBoundingClientRect(), tgt = $('#sCoins').getBoundingClientRect();
+  const tgtEl = $('#sCoins'); if (!el || !tgtEl) return;
+  const r = el.getBoundingClientRect(), tgt = tgtEl.getBoundingClientRect();
   const c = document.createElement('div'); c.className = 'coin'; c.textContent = '🪙';
   c.style.left = (r.left + r.width/2 - 14) + 'px'; c.style.top = (r.top + r.height/2 - 14) + 'px';
   c.style.setProperty('--dx', (tgt.left - r.left - r.width/2 + 14) + 'px');
@@ -413,7 +539,7 @@ function coinFx(el){
   document.body.appendChild(c); setTimeout(()=>c.remove(), 1100);
 }
 function confetti(n=40){
-  const em = ['🪙','✨','🏴‍☠️','💎','⭐','🧡'];
+  const em = ['🪙','✨','👑','💎','⭐','🧡','🌴'];
   for (let i=0;i<n;i++){ const c = document.createElement('div'); c.className='confetti'; c.textContent = pick(em);
     c.style.left = Math.random()*100+'vw'; c.style.animationDuration = (2+Math.random()*2)+'s'; c.style.animationDelay = Math.random()*.8+'s';
     document.body.appendChild(c); setTimeout(()=>c.remove(), 5000); }
@@ -422,51 +548,176 @@ function openSheet(html){ $('#sheet').innerHTML = html; $('#modal').classList.ad
 function closeSheet(){ $('#modal').classList.remove('open'); }
 $('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeSheet(); });
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function catMove(cls){ const c = $('#cat'); c.classList.remove('hop','dance'); void c.getBoundingClientRect(); c.classList.add(cls);
+  setTimeout(()=>c.classList.remove(cls), cls === 'dance' ? 1500 : 800); }
+
+/* ---------------- paws ---------------- */
+function pawLastUse(before){
+  const last = {}; for (const p of PAW_ORDER) last[p] = '';
+  for (const k in S.marks){ const m = S.marks[k]; if (m.del || !m.paw) continue;
+    const [d, t] = k.split('|'); if (t !== 'inj' || d >= before) continue; if (d > last[m.paw]) last[m.paw] = d; }
+  return last;
+}
+function suggestPaw(d){
+  const last = pawLastUse(d), allowed = PAW_ORDER.filter(p => !S.settings.inj.hindOnly || PAWS[p].hind);
+  return allowed.slice().sort((a,b) => (last[a] || '0').localeCompare(last[b] || '0') || PAW_ORDER.indexOf(a) - PAW_ORDER.indexOf(b))[0];
+}
+function prevPaw(d){ // paw used on the latest injection day before d
+  const last = pawLastUse(d); let best = null;
+  for (const p of PAW_ORDER) if (last[p] && (!best || last[p] > last[best])) best = p;
+  return best ? { paw: best, date: last[best] } : null;
+}
+function fluff(cx, cy, r, n, a){
+  let d = '';
+  for (let k=0;k<=n;k++){
+    const t = k/n*2*Math.PI, x = cx + r*Math.cos(t), y = cy + r*Math.sin(t);
+    if (!k){ d += `M${x.toFixed(1)} ${y.toFixed(1)}`; continue; }
+    const tm = (k-.5)/n*2*Math.PI;
+    d += ` Q${(cx+(r+a)*Math.cos(tm)).toFixed(1)} ${(cy+(r+a)*Math.sin(tm)).toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)}`;
+  }
+  return d + 'Z';
+}
+function buttSVG(state){
+  const g = (id, inner, ring, bx, by) => {
+    const s = state[id] || {}; let badge = '';
+    if (s.done) badge = `<text class="bdg" x="${bx}" y="${by}" text-anchor="middle" font-size="20">💉</text>`;
+    else if (s.sugg) badge = `<g><rect x="${bx-22}" y="${by-14}" width="44" height="18" rx="9" fill="#5b2a6e"/><text class="bdg" x="${bx}" y="${by-1}" text-anchor="middle" fill="#ffd56b">сюда</text></g>`;
+    else if (s.yest) badge = `<g><rect x="${bx-24}" y="${by-14}" width="48" height="18" rx="9" fill="#7a6040"/><text class="bdg" x="${bx}" y="${by-1}" text-anchor="middle" fill="#fff">${esc(s.yest)}</text></g>`;
+    return `<g class="paw ${s.done?'done':''} ${s.sugg?'sugg':''} ${s.off?'off':''}" data-paw="${id}">${inner}${ring}${badge}</g>`;
+  };
+  const toes = (x, y, k=1) => `<ellipse class="pad" cx="${x}" cy="${y+4*k}" rx="${10*k}" ry="${7.5*k}" fill="#f39aa5"/>` +
+    [-12,-4,4,12].map((dx,i)=>`<ellipse class="pad" cx="${x+dx*k}" cy="${y-(i===0||i===3?6:9)*k}" rx="${3.6*k}" ry="${4.4*k}" fill="#f39aa5"/>`).join('');
+  return `<svg class="butt" viewBox="0 0 300 290" aria-label="Пушистая попа — выбери лапку">
+  <defs><radialGradient id="fur" cx="45%" cy="35%" r="70%"><stop offset="0" stop-color="#f8c98f"/><stop offset=".6" stop-color="#f0aa5c"/><stop offset="1" stop-color="#e3913f"/></radialGradient></defs>
+  <text x="14" y="20" font-family="Nunito" font-weight="900" font-size="12" fill="#7a6040">← лево</text>
+  <text x="286" y="20" text-anchor="end" font-family="Nunito" font-weight="900" font-size="12" fill="#7a6040">право →</text>
+  <!-- back of head with tiny crown -->
+  <path d="M122 50 L114 14 L142 34 Z M178 50 L186 14 L158 34 Z" fill="#e89a48"/>
+  <path d="${fluff(150,58,34,14,5)}" fill="url(#fur)"/>
+  <path d="M132 30 L130 14 L140 22 L150 10 L160 22 L170 14 L168 30 Z" fill="#e3b02a" stroke="#a87810" stroke-width="2"/>
+  <circle cx="150" cy="24" r="3" fill="#a8402a"/>
+  <!-- back -->
+  <path d="${fluff(150,112,66,18,7)}" fill="url(#fur)"/>
+  <path d="M150 70 v30 M136 74 q-4 14 0 24 M164 74 q4 14 0 24" stroke="#d47f2f" stroke-width="5" stroke-linecap="round" fill="none" opacity=".7"/>
+  <!-- front paws peeking between the hind legs -->
+  ${g('LF', `<ellipse cx="126" cy="256" rx="20" ry="13" fill="#f6c389"/>${toes(126,256,.7)}`, `<ellipse class="ring" cx="126" cy="256" rx="26" ry="19"/>`, 126, 236)}
+  ${g('RF', `<ellipse cx="174" cy="256" rx="20" ry="13" fill="#f6c389"/>${toes(174,256,.7)}`, `<ellipse class="ring" cx="174" cy="256" rx="26" ry="19"/>`, 174, 236)}
+  <!-- haunches -->
+  <path d="${fluff(106,158,58,18,8)}" fill="url(#fur)"/>
+  <path d="${fluff(194,158,58,18,8)}" fill="url(#fur)"/>
+  <path d="M84 132 q14 -10 28 0 M80 150 q16 -10 32 0 M188 132 q14 -10 28 0 M188 150 q16 -10 32 0" stroke="#d47f2f" stroke-width="4" stroke-linecap="round" fill="none" opacity=".55"/>
+  <!-- fluffy pants -->
+  <path d="${fluff(150,204,26,12,6)}" fill="#fbe0bd"/>
+  <!-- hind legs + paws -->
+  ${g('LH', `<path d="M58 176 Q50 222 60 250 L112 250 Q116 222 112 196 Z" fill="url(#fur)"/><path d="${fluff(86,252,30,14,4)}" fill="#fbe0bd"/>${toes(86,254)}`, `<ellipse class="ring" cx="86" cy="248" rx="40" ry="28"/>`, 86, 214)}
+  ${g('RH', `<path d="M242 176 Q250 222 240 250 L188 250 Q184 222 188 196 Z" fill="url(#fur)"/><path d="${fluff(214,252,30,14,4)}" fill="#fbe0bd"/>${toes(214,254)}`, `<ellipse class="ring" cx="214" cy="248" rx="40" ry="28"/>`, 214, 214)}
+  <!-- tail -->
+  <g class="tail">
+    <path d="M150 150 C152 112 214 118 228 74 C236 50 226 32 210 34" stroke="#e8964a" stroke-width="28" stroke-linecap="round" fill="none"/>
+    <path d="M150 150 C152 112 214 118 228 74 C236 50 226 32 210 34" stroke="#d47f2f" stroke-width="28" stroke-dasharray="6 16" fill="none"/>
+    <path d="M152 140 C156 116 206 118 220 78" stroke="#f8c98f" stroke-width="7" stroke-linecap="round" fill="none" opacity=".7"/>
+    <circle cx="210" cy="34" r="14" fill="#fbe0bd"/>
+  </g>
+  <text x="86" y="286" text-anchor="middle" font-family="Nunito" font-weight="900" font-size="12" fill="#7a6040">левая задняя</text>
+  <text x="214" y="286" text-anchor="middle" font-family="Nunito" font-weight="900" font-size="12" fill="#7a6040">правая задняя</text>
+  </svg>`;
+}
 
 /* ---------------- render ---------------- */
+function courseDay(d, start, days){ if (!inCourse(d, start, days)) return null; return diffDays(start, d) + 1; }
 function render(){
   const st = S.settings, t = today();
   view = clampDay(view);
-  const dayN = Math.min(Math.max(diffDays(st.start, t) + 1, 0), st.days);
-  $('#sDay').textContent = Math.max(dayN, 0); $('#sDays').textContent = st.days;
-  let coins = 0, chests = 0;
-  for (let i=0;i<st.days;i++){ const c = countDay(addDays(st.start, i)); coins += c.all; if (c.all === TOTAL) chests++; }
-  $('#sCoins').textContent = coins; $('#sChests').textContent = chests;
-  $('#sub').textContent = dayN >= 1 ? `Курс лечения глаза · осталось ${st.days - dayN} дн.` : `Курс начнётся ${human(st.start)}`;
+  const [ra, rb] = range();
+  $('#title').textContent = 'Царь ' + st.name;
+  document.title = `Царь ${st.name} · книга лечения`;
 
-  // who
+  // stats
+  let coins = 0, full = 0;
+  for (let d = ra; d <= rb; d = addDays(d, 1)){ const c = countDay(d); coins += c.done; if (c.total && c.done === c.total) full++; }
+  const eyeN = courseDay(t, st.start, st.days);
+  const nextSpec = [...st.worm.map(x=>({d:x,t:'worm'})), ...st.flea.map(x=>({d:x,t:'flea'}))].filter(x => x.d >= t).sort((a,b)=>a.d.localeCompare(b.d))[0];
+  let stats = '';
+  if (eyeN) stats += `<div class="pill">👁 <b>${eyeN}</b>/${st.days}</div>`;
+  stats += `<div class="pill">🪙 <b id="sCoins">${coins}</b> шекелей</div><div class="pill">👑 <b>${full}</b> ${dayWord(full)} без пропусков</div>`;
+  if (nextSpec){ const n = diffDays(t, nextSpec.d); stats += `<div class="pill">${META[nextSpec.t].icon} ${n === 0 ? '<b>сегодня</b>' : `через <b>${n}</b> ${dayWord(n)}`}</div>`; }
+  $('#stats').innerHTML = stats;
+  const left = diffDays(t, rb);
+  $('#sub').textContent = t < ra ? `Лечение начнётся ${human(ra)}` : left >= 0 ? `Книга лечения · до конца ${left} ${dayWord(left)}` : 'Лечение окончено. Царь здоров!';
+
   $('#whoBtns').innerHTML = st.names.map((n,i)=>`<button data-me="${i}" class="${i===me?'on':''}">${esc(n)}</button>`).join(' ');
 
   // day header
-  const vn = diffDays(st.start, view) + 1;
-  $('#dTitle').textContent = view === t ? `Сегодня · день ${vn}` : `День ${vn}`;
-  $('#dDate').textContent = human(view);
+  const dd0 = diffDays(t, view), wd = WD[parseD(view).getDay()];
+  $('#dTitle').textContent = dd0 === 0 ? 'Сегодня' : dd0 === 1 ? 'Завтра' : dd0 === -1 ? 'Вчера' : wd[0].toUpperCase() + wd.slice(1);
+  $('#dDate').textContent = Math.abs(dd0) <= 1 ? human(view) : `${parseD(view).getDate()} ${MONTHS[parseD(view).getMonth()]}`;
   $('#goToday').hidden = view === clampDay(t);
-  $('#prev').disabled = view <= st.start;
-  $('#next').disabled = view >= addDays(st.start, st.days - 1);
+  $('#prev').disabled = view <= ra;
+  $('#next').disabled = view >= rb;
+  const ch = [];
+  const e1 = courseDay(view, st.start, st.days); if (e1) ch.push(`👁 глаз ${e1}/${st.days}`);
+  const i1 = courseDay(view, st.inj.start, st.inj.days); if (i1) ch.push(`💉 уколы ${i1}/${st.inj.days}`);
+  const a1 = courseDay(view, st.abx.start, st.abx.days); if (a1) ch.push(`💊 антибиотик ${a1}/${st.abx.days}`);
+  $('#courses').innerHTML = ch.map(x=>`<span>${x}</span>`).join('');
 
-  // slots
-  const nowHM = `${pad(new Date().getHours())}:${pad(new Date().getMinutes())}`;
-  for (const type of ['drop','oint']){
-    const box = type === 'drop' ? $('#slotsDrop') : $('#slotsOint');
-    let html = '';
-    for (let i=0;i<N[type];i++){
-      const m = mark(view, type, i), plan = st.plan[type][i] || '';
-      const late = !m && ((view === t && plan && plan < nowHM) || view < t);
-      if (m) html += `<button class="slot done" data-t="${type}" data-i="${i}"><span class="i">${ICON[type]}</span><span class="p">${hm(m.at)}</span><span class="w">${esc(st.names[m.who] || '')}</span></button>`;
-      else html += `<button class="slot ${late?'late':''}" data-t="${type}" data-i="${i}"><span class="i">${ICON[type]}</span><span class="p">${plan || '№'+(i+1)}</span></button>`;
+  // tasks
+  const tasks = tasksFor(view), now = nowHM();
+  let html = '';
+  const isLate = (type, i) => view < t || (view === t && planTime(type, i) && planTime(type, i) < now);
+  const slot = (type, i, extra='') => {
+    const m = mark(view, type, i), plan = planTime(type, i);
+    if (m) return `<button class="slot done ${extra}" data-t="${type}" data-i="${i}"><span class="i">${META[type].icon}</span><span class="p">${hm(m.at)}</span><span class="w">${esc(st.names[m.who] || '')}</span></button>`;
+    return `<button class="slot ${isLate(type,i)?'late':''} ${extra}" data-t="${type}" data-i="${i}"><span class="i">${META[type].icon}</span><span class="p">${plan || '№'+(i+1)}</span></button>`;
+  };
+  const bigSlot = (type, sub, extra='') => {
+    const m = mark(view, type, 0);
+    return `<button class="slot big ${m?'done':''} ${!m && isLate(type,0)?'late':''} ${extra}" data-t="${type}" data-i="0"><span class="i">${META[type].icon}</span>
+      <span class="tx"><span class="nm">${META[type].label}</span><span class="p">${m ? `✓ ${hm(m.at)} · ${esc(st.names[m.who] || '')}` : sub}</span></span></button>`;
+  };
+  for (const tk of tasks){
+    if (tk.type === 'drop' || tk.type === 'oint'){
+      html += `<div class="row-h"><span class="n">${META[tk.type].icon} ${META[tk.type].label}</span><span class="c">${countType(view, tk.type, tk.n)}/${tk.n}</span></div>`;
+      html += `<div class="slots s${tk.n}">` + Array.from({length: tk.n}, (_, i) => slot(tk.type, i)).join('') + '</div>';
     }
-    box.innerHTML = html;
   }
-  const c = countDay(view);
-  $('#cDrop').textContent = `${c.drop}/${N.drop}`; $('#cOint').textContent = `${c.oint}/${N.oint}`;
-  $('#bar').style.width = (c.all / TOTAL * 100) + '%';
-  $('#dayMsg').textContent = c.all === TOTAL ? '🏆 День закрыт! Сундук в трюме.' : c.all === 0 ? (view > t ? 'Этот остров ещё впереди ⛵' : 'Ни одной процедуры. Свистать всех наверх!') : `Ещё ${TOTAL - c.all} до сундука`;
+  if (tasks.some(x => x.type === 'inj')) html += renderInj();
+  const pills = tasks.filter(x => ['abx','worm','flea'].includes(x.type));
+  if (pills.length){
+    const done = pills.filter(x => mark(view, x.type, 0)).length;
+    html += `<div class="row-h"><span class="n">💊 Таблетки</span><span class="c">${done}/${pills.length}</span></div><div class="slots s1">`;
+    for (const p of pills){
+      if (p.type === 'abx') html += bigSlot('abx', `${esc(st.abx.dose)} · в обед, около ${st.abx.time}`);
+      else html += bigSlot(p.type, `особый день · около ${st.specTime}`, 'special');
+    }
+    html += '</div>';
+  }
+  if (!tasks.length) html = `<p class="msg">В этот день царских указов нет 🌴</p>`;
+  $('#tasks').innerHTML = html;
 
-  renderBanners();
-  renderMap();
-  renderJournal();
-  updatePatch();
+  const c = countDay(view);
+  $('#bar').style.width = (c.total ? c.done / c.total * 100 : 0) + '%';
+  $('#dayMsg').textContent = !c.total ? '' : c.done === c.total ? '👑 День исполнен! Сокровищница пополнилась.' :
+    c.done === 0 ? (view > t ? 'Этот день ещё впереди 🐪' : 'Ни одного указа не исполнено. Лекари, к царю!') : `Осталось ${c.total - c.done} до полного дня`;
+
+  renderBanners(); renderUpcoming(); renderMap(); renderJournal(); updatePatch();
+}
+
+function renderInj(){
+  const st = S.settings, m = mark(view, 'inj', 0), t = today();
+  const sugg = suggestPaw(view), prev = prevPaw(view);
+  const state = {};
+  for (const p of PAW_ORDER) state[p] = { off: st.inj.hindOnly && !PAWS[p].hind };
+  if (m && m.paw) state[m.paw].done = true;
+  else state[sugg].sugg = true;
+  if (prev && !(m && m.paw === prev.paw) && !state[prev.paw].sugg) state[prev.paw].yest = diffDays(prev.date, view) === 1 ? 'вчера' : dm(prev.date);
+  let msg;
+  if (m) msg = `Сделан укол в <b>${PAWS[m.paw] ? PAWS[m.paw].acc : '?'}</b> лапку · ${hm(m.at)} · ${esc(st.names[m.who] || '')}`;
+  else msg = `${view > t ? 'В этот день' : view === t ? 'Сегодня' : 'В этот день'} колем в <b>${PAWS[sugg].acc}</b> лапку${prev ? ` (последний раз — ${PAWS[prev.paw].name}, ${diffDays(prev.date, view) === 1 ? 'вчера' : dm(prev.date)})` : ''}${view <= t ? '. Нажми на лапку.' : '.'}`;
+  // history chips (last 6 injections up to view)
+  const hist = Object.keys(S.marks).filter(k => { const [d,ty] = k.split('|'); return ty === 'inj' && !S.marks[k].del && S.marks[k].paw && d <= view; })
+    .sort().slice(-6).map(k => { const d = k.split('|')[0]; return `<span class="${d===view?'today':''}">${dm(d)} · ${PAWS[S.marks[k].paw].short}</span>`; }).join('');
+  return `<div class="row-h"><span class="n">💉 Укол</span><span class="c">${m?1:0}/1 · около ${st.inj.time}</span></div>
+    ${buttSVG(state)}<div class="pawmsg">${msg}</div>${hist ? `<div class="pawhist">${hist}</div>` : ''}`;
 }
 
 let waitTimer;
@@ -474,138 +725,189 @@ function renderBanners(){
   const st = S.settings, t = today(), box = $('#banners');
   clearInterval(waitTimer); box.innerHTML = '';
   if (view !== t) return;
-  // wait timer after the latest drop
-  let lastDrop = null;
-  for (let i=0;i<N.drop;i++){ const m = mark(t,'drop',i); if (m && (!lastDrop || m.at > lastDrop)) lastDrop = m.at; }
-  let lastOint = null;
-  for (let i=0;i<N.oint;i++){ const m = mark(t,'oint',i); if (m && (!lastOint || m.at > lastOint)) lastOint = m.at; }
-  const waitEnd = lastDrop ? new Date(lastDrop).getTime() + st.wait*60e3 : 0;
-  if (lastDrop && Date.now() < waitEnd && !(lastOint && lastOint > lastDrop) && countDay(t).oint < N.oint){
-    box.innerHTML = `<div class="banner wait">⏳ <div>Подожди, матрос! Мазь можно через <b id="wt"></b></div></div>`;
-    const tick = () => { const left = Math.max(0, waitEnd - Date.now()); const el = $('#wt'); if (!el) return clearInterval(waitTimer);
-      el.textContent = `${Math.floor(left/60e3)}:${pad(Math.floor(left/1e3)%60)}`;
-      if (left <= 0){ clearInterval(waitTimer); toast('🧴 Можно закладывать мазь!'); renderBanners(); } };
-    tick(); waitTimer = setInterval(tick, 1000); return;
+  const tasks = tasksFor(t);
+  if (tasks.some(x => x.type === 'oint')){
+    let lastDrop = null, lastOint = null;
+    for (let i=0;i<3;i++){ const m = mark(t,'drop',i); if (m && (!lastDrop || m.at > lastDrop)) lastDrop = m.at; }
+    for (let i=0;i<5;i++){ const m = mark(t,'oint',i); if (m && (!lastOint || m.at > lastOint)) lastOint = m.at; }
+    const waitEnd = lastDrop ? new Date(lastDrop).getTime() + st.wait*60e3 : 0;
+    if (lastDrop && Date.now() < waitEnd && !(lastOint && lastOint > lastDrop) && countType(t,'oint',5) < 5){
+      box.innerHTML = `<div class="banner wait">⏳ <div>Терпение, лекарь! Мазь можно через <b id="wt"></b></div></div>`;
+      const tick = () => { const left = Math.max(0, waitEnd - Date.now()); const el = $('#wt'); if (!el) return clearInterval(waitTimer);
+        el.textContent = `${Math.floor(left/60e3)}:${pad(Math.floor(left/1e3)%60)}`;
+        if (left <= 0){ clearInterval(waitTimer); toast('🧴 Можно закладывать мазь!'); renderBanners(); } };
+      tick(); waitTimer = setInterval(tick, 1000); return;
+    }
   }
-  // next planned
-  const nowHM = `${pad(new Date().getHours())}:${pad(new Date().getMinutes())}`;
-  const todo = [];
-  for (const type of ['drop','oint']) for (let i=0;i<N[type];i++) if (!mark(t,type,i)) todo.push({type, i, p: st.plan[type][i] || '23:59'});
+  const now = nowHM(), todo = [];
+  for (const tk of tasks) for (let i=0;i<tk.n;i++) if (!mark(t, tk.type, i)) todo.push({ type: tk.type, i, n: tk.n, p: planTime(tk.type, i) || '23:59' });
   if (!todo.length) return;
-  todo.sort((a,b)=> a.p.localeCompare(b.p) || (a.type==='drop'?-1:1));
-  const n = todo[0], late = n.p < nowHM;
-  box.innerHTML = `<div class="banner next ${late?'late':''}">${ICON[n.type]} <div>${late ? 'Пора! ' : 'Следующее: '}${LABEL[n.type]} №${n.i+1} ${late ? '(по плану было в ' + n.p + ')' : 'около ' + n.p}</div></div>`;
+  todo.sort((a,b) => a.p.localeCompare(b.p) || (a.type === 'drop' ? -1 : 1));
+  const n = todo[0], late = n.p < now, nm = META[n.type].one + (n.n > 1 ? ` №${n.i+1}` : '');
+  box.innerHTML = `<div class="banner next ${late?'late':''}">${META[n.type].icon} <div>${late ? 'Пора! ' : 'Следующее: '}${nm} ${late ? '(по плану было в ' + n.p + ')' : 'около ' + n.p}</div></div>`;
+}
+
+function renderUpcoming(){
+  const st = S.settings, t = today(), items = [];
+  for (const d of st.worm) items.push({ d, ic:'🪱', tx:'Таблетка от глистов', type:'worm' });
+  for (const d of st.flea) items.push({ d, ic:'🛡️', tx:'Средство от блох', type:'flea' });
+  if (st.inj.days > 0) items.push({ d: addDays(st.inj.start, st.inj.days - 1), ic:'💉', tx:'Последний укол' });
+  if (st.abx.days > 0) items.push({ d: addDays(st.abx.start, st.abx.days - 1), ic:'💊', tx:'Последний антибиотик' });
+  items.push({ d: addDays(st.start, st.days - 1), ic:'👁', tx:'Конец курса для глаза' });
+  const list = items.filter(x => x.d >= t || (x.type && !mark(x.d, x.type, 0) && diffDays(x.d, t) <= 3)).sort((a,b)=>a.d.localeCompare(b.d)).slice(0, 7);
+  $('#upcoming').innerHTML = list.length ? list.map(x => {
+    const n = diffDays(t, x.d), done = x.type && mark(x.d, x.type, 0);
+    const wh = done ? '<span class="wh ok">✓ сделано</span>' : n === 0 ? '<span class="wh">сегодня</span>' : n < 0 ? '<span class="wh" style="color:var(--red)">пропущено?</span>' : `<span class="wh">через ${n} ${dayWord(n)}</span>`;
+    return `<div data-go="${x.d}"><span class="ic">${x.ic}</span><span>${x.tx}<br><span class="note">${human(x.d)}</span></span>${wh}</div>`;
+  }).join('') : '<p class="note">Всё исполнено 👑</p>';
 }
 
 function renderMap(){
   const st = S.settings, t = today(), svg = $('#map');
-  const days = st.days, cols = 8, rows = Math.ceil(days / cols);
-  const W = 360, padX = 26, padY = 28, cw = (W - padX*2) / (cols - 1), rh = 44;
-  const H = padY*2 + (rows - 1) * rh + 44;
+  const [ra, rb] = range(), days = diffDays(ra, rb) + 1, cols = 8, rows = Math.ceil(days / cols);
+  const W = 360, padX = 26, padY = 34, cw = (W - padX*2) / (cols - 1), rh = 48;
+  const H = padY*2 + (rows - 1) * rh + 46;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   const pts = [];
   for (let k=0;k<days;k++){ const r = Math.floor(k/cols), c0 = k % cols, c = r % 2 ? cols-1-c0 : c0;
     pts.push([padX + c*cw + (r%2 ? -4 : 4), padY + r*rh + (k%3===1 ? 4 : k%3===2 ? -3 : 0)]); }
-  const endP = [Math.min(Math.max(pts[days-1][0], 30), W - 30), pts[days-1][1] + 40];
+  const endP = [Math.min(Math.max(pts[days-1][0], 30), W - 30), pts[days-1][1] + 42];
   let d = `M${pts[0][0]} ${pts[0][1]}`;
   for (let k=1;k<days;k++){ const [x0,y0] = pts[k-1], [x1,y1] = pts[k]; d += ` Q${(x0+x1)/2} ${(y0+y1)/2 + (x0===x1 ? 0 : (k%2?8:-8))} ${x1} ${y1}`; }
   d += ` L${endP[0]} ${endP[1]}`;
   let g = `<path d="${d}" fill="none" stroke="#8a5a2a" stroke-width="2.5" stroke-dasharray="5 6" stroke-linecap="round"/>`;
-  // waves decoration
-  for (let i=0;i<6;i++) g += `<path d="M${20+i*60} ${H-8} q6 -6 12 0 q6 -6 12 0" stroke="#7aa0c0" stroke-width="2" fill="none" opacity=".6"/>`;
-  let shipAt = null;
+  let camel = null;
   for (let k=0;k<days;k++){
-    const day = addDays(st.start, k), [x,y] = pts[k], c = countDay(day);
-    let fill = '#fffaf0', stroke = '#a9864c', inner = '';
-    if (c.all === TOTAL){ fill = '#f0b53c'; stroke = '#a8740f'; inner = `<text x="${x}" y="${y+4}" text-anchor="middle" font-size="11" font-weight="900" fill="#4a3008">✓</text>`; }
-    else if (c.all > 0){ fill = `url(#half)`; stroke = '#a8740f'; }
-    else if (day < t){ fill = '#8d8d8d'; stroke = '#5c5c5c'; }
-    if (!inner) inner = `<text x="${x}" y="${y+4}" text-anchor="middle" font-size="10" font-weight="900" fill="${day < t && c.all===0 ? '#eee' : '#5a4020'}">${k+1}</text>`;
-    const sel = day === view ? `<circle cx="${x}" cy="${y}" r="17" fill="none" stroke="#b8412c" stroke-width="2.5"/>` : '';
-    g += `<g class="isl" data-day="${day}"><circle cx="${x}" cy="${y}" r="16" fill="transparent"/>${sel}<circle cx="${x}" cy="${y}" r="12" fill="${fill}" stroke="${stroke}" stroke-width="2"/>${inner}</g>`;
-    if (day === t) shipAt = [x, y];
+    const day = addDays(ra, k), [x,y] = pts[k], c = countDay(day), dd = parseD(day);
+    let fill = '#fffaf0', stroke = '#a9864c', txt = '#5a4020';
+    if (!c.total){ fill = '#efe2c4'; stroke = '#cbb68a'; txt = '#a99470'; }
+    else if (c.done === c.total){ fill = '#f0b53c'; stroke = '#a8740f'; txt = '#4a3008'; }
+    else if (c.done > 0){ fill = 'url(#half)'; stroke = '#a8740f'; }
+    else if (day < t){ fill = '#8d8d8d'; stroke = '#5c5c5c'; txt = '#eee'; }
+    const sel = day === view ? `<circle cx="${x}" cy="${y}" r="17" fill="none" stroke="#a8402a" stroke-width="2.5"/>` : '';
+    const mon = (dd.getDate() === 1 || k === 0) ? `<text x="${x}" y="${y-17}" text-anchor="middle" font-size="9" font-weight="900" fill="#5b2a6e">${MSHORT[dd.getMonth()]}</text>` : '';
+    const spec = (st.worm.includes(day) ? '🪱' : '') + (st.flea.includes(day) ? '🛡️' : '');
+    const sp = spec ? `<text x="${x+11}" y="${y-8}" text-anchor="middle" font-size="11">${spec}</text>` : '';
+    g += `<g class="isl" data-day="${day}"><circle cx="${x}" cy="${y}" r="17" fill="transparent"/>${sel}<circle cx="${x}" cy="${y}" r="12" fill="${fill}" stroke="${stroke}" stroke-width="2"/>
+      <text x="${x}" y="${y+4}" text-anchor="middle" font-size="10.5" font-weight="900" fill="${txt}">${c.total && c.done === c.total ? '✓' : dd.getDate()}</text>${mon}${sp}</g>`;
+    if (day === t) camel = [x, y];
   }
-  if (!shipAt && t < st.start) shipAt = [pts[0][0] - 2, pts[0][1] - 4];
-  g += `<g transform="translate(${endP[0]} ${endP[1]})"><path d="M-9 -9 L9 9 M9 -9 L-9 9" stroke="#b8412c" stroke-width="4.5" stroke-linecap="round"/><text x="0" y="-12" text-anchor="middle" font-size="16">💰</text></g>`;
-  if (shipAt) g += `<text x="${shipAt[0]+10}" y="${shipAt[1]-10}" text-anchor="middle" font-size="18">⛵</text>`;
+  if (!camel && t < ra) camel = pts[0];
+  g += `<g transform="translate(${endP[0]} ${endP[1]})"><text x="0" y="6" text-anchor="middle" font-size="24">🏛️</text><text x="0" y="-16" text-anchor="middle" font-size="14">👑</text></g>`;
+  if (camel) g += `<text x="${camel[0]+12}" y="${camel[1]-9}" text-anchor="middle" font-size="18">🐪</text>`;
   svg.innerHTML = `<defs><linearGradient id="half"><stop offset="50%" stop-color="#f0b53c"/><stop offset="50%" stop-color="#e6d3a6"/></linearGradient></defs>` + g;
 }
 
 const EYES = [['😣','плохо'],['😕','так себе'],['😐','средне'],['🙂','лучше'],['😺','отлично']];
 function renderJournal(){
-  const n = S.notes[view] || {};
+  const n = S.notes[view] || {}, st = S.settings;
   $('#jDate').textContent = `Запись за ${human(view)}`;
   $('#eyes').innerHTML = EYES.map((e,i)=>`<button data-eye="${i+1}" class="${n.eye===i+1?'on':''}">${e[0]}<small>${e[1]}</small></button>`).join('');
   if (document.activeElement !== $('#note')) $('#note').value = n.t || '';
-  // history of last notes
+  const [ra] = range();
   const keys = Object.keys(S.notes).filter(k => (S.notes[k].t || S.notes[k].eye)).sort().reverse().slice(0, 6);
-  $('#hist').innerHTML = keys.length ? keys.map(k => { const x = S.notes[k];
-    return `<div><b>День ${diffDays(S.settings.start,k)+1}</b> ${x.eye ? EYES[x.eye-1][0] : ''} ${esc(x.t || '')}</div>`; }).join('') : '';
+  $('#hist').innerHTML = keys.map(k => { const x = S.notes[k];
+    return `<div><b>${dm(k)}</b> ${x.eye ? EYES[x.eye-1][0] : ''} ${esc(x.t || '')}</div>`; }).join('');
 }
 
 function updatePatch(){
   const st = S.settings, last = addDays(st.start, st.days - 1);
-  const finished = today() >= last && countDay(last).all === TOTAL || today() > last;
+  const finished = (today() >= last && countType(last, 'oint', 5) === 5) || today() > last;
   $('#patch').classList.toggle('gone', finished);
-  if (finished && !sessionStorage.getItem('musashi.fin')){ sessionStorage.setItem('musashi.fin','1'); setTimeout(()=>{ confetti(70); toast('🎉 Курс пройден! Капитан снова видит горизонт!'); }, 600); }
+  if (finished && !sessionStorage.getItem('musashi.fin')){ sessionStorage.setItem('musashi.fin','1'); setTimeout(()=>{ confetti(70); toast('🎉 Курс для глаза пройден! Царь снова видит всё царство!'); }, 600); }
 }
 
 /* ---------------- actions ---------------- */
-function setMark(d, type, i, at){
-  S.marks[key(d,type,i)] = { at, who: me, u: Date.now() };
+function setMark(d, type, i, at, extra){
+  S.marks[key(d,type,i)] = Object.assign({ at, who: me, u: Date.now() }, extra || {});
   save();
 }
 function delMark(d, type, i){
   const k = key(d,type,i); S.marks[k] = Object.assign({}, S.marks[k], { del: true, u: Date.now() });
   save();
 }
+function afterMark(type, i, before, total){
+  render();
+  const el = document.querySelector(`.slot[data-t="${type}"][data-i="${i}"]`) || document.querySelector('.butt');
+  if (el){ el.classList.add('pop'); coinFx(el); }
+  const full = before + 1 === total;
+  catMove(full ? 'dance' : 'hop');
+  if (full){ confetti(); toast(pick(PH.dayDone)); }
+  else toast(pick(PH[type]) + (type === 'drop' && S.settings.wait && tasksFor(view).some(x=>x.type==='oint') ? ` Мазь через ${S.settings.wait} мин.` : ''));
+  if (navigator.vibrate) navigator.vibrate(30);
+}
+const timeAt = (d, v) => { const [h,mi] = v.split(':').map(Number); const nd = parseD(d); nd.setHours(h, mi); return nd.toISOString(); };
+
+function onPaw(paw){
+  const st = S.settings, t = today();
+  if (st.inj.hindOnly && !PAWS[paw].hind) return toast('Сейчас колем только в задние лапки');
+  if (view > t) return toast('Этот день ещё не наступил 🐪');
+  const m = mark(view, 'inj', 0);
+  if (m){
+    if (m.paw === paw) return sheetEdit('inj', 0, m);
+    return openSheetSimple(`💉 Сменить лапку?`, `Отмечено: ${PAWS[m.paw] ? PAWS[m.paw].name : '?'}. Поменять на <b>${PAWS[paw].acc}</b>?`, 'Поменять',
+      () => { S.marks[key(view,'inj',0)] = Object.assign({}, m, { paw, u: Date.now() }); save(); render(); toast('Лапка исправлена ✍️'); });
+  }
+  const prev = prevPaw(view);
+  const doIt = (at) => { const c = countDay(view); setMark(view, 'inj', 0, at, { paw }); afterMark('inj', 0, c.done, c.total); };
+  const sameAsPrev = prev && prev.paw === paw && diffDays(prev.date, view) === 1;
+  if (view === t && !sameAsPrev) return doIt(new Date().toISOString());
+  openSheet(`<h3>💉 Укол: ${PAWS[paw].name}</h3>
+    ${sameAsPrev ? `<p class="note" style="color:var(--red)">⚠️ Вчера кололи в эту же лапку. Лучше выбрать другую — например, <b>${PAWS[suggestPaw(view)].acc}</b>.</p>` : `<p class="note">${human(view)}</p>`}
+    <label>Во сколько</label><input type="time" id="mt" value="${view === t ? nowHM() : st.inj.time}">
+    <div class="acts"><button class="btn gold" id="mSave">Отметить</button><button class="btn ghost" id="mClose">Отмена</button></div>`);
+  $('#mSave').onclick = () => { closeSheet(); doIt(timeAt(view, $('#mt').value)); };
+  $('#mClose').onclick = closeSheet;
+}
+function openSheetSimple(title, text, okLabel, onOk){
+  openSheet(`<h3>${title}</h3><p class="note" style="font-size:14px">${text}</p>
+    <div class="acts"><button class="btn gold" id="mOk">${okLabel}</button><button class="btn ghost" id="mClose">Отмена</button></div>`);
+  $('#mOk').onclick = () => { closeSheet(); onOk(); }; $('#mClose').onclick = closeSheet;
+}
 
 document.addEventListener('click', e => {
+  const pawEl = e.target.closest('.paw');
+  if (pawEl) return onPaw(pawEl.dataset.paw);
   const slot = e.target.closest('.slot');
   if (slot){
     const type = slot.dataset.t, i = +slot.dataset.i, m = mark(view, type, i);
     if (m) return sheetEdit(type, i, m);
     if (view === today()){
-      const before = countDay(view).all;
+      const c = countDay(view);
       setMark(view, type, i, new Date().toISOString());
-      render();
-      const el = document.querySelector(`.slot[data-t="${type}"][data-i="${i}"]`); if (el){ el.classList.add('pop'); coinFx(el); }
-      catMove(before + 1 === TOTAL ? 'dance' : 'hop');
-      if (before + 1 === TOTAL){ confetti(); toast(pick(PH.dayDone)); }
-      else toast(pick(PH[type]) + (type === 'drop' && S.settings.wait ? ` Мазь через ${S.settings.wait} мин.` : ''));
-      if (navigator.vibrate) navigator.vibrate(30);
-    } else if (view > today()){
-      toast('Этот день ещё не наступил ⛵');
-    } else sheetAdd(type, i);
+      afterMark(type, i, c.done, c.total);
+    } else if (view > today()) toast('Этот день ещё не наступил 🐪');
+    else sheetAdd(type, i);
     return;
   }
   const isl = e.target.closest('.isl');
   if (isl){ view = isl.dataset.day; render(); $('#dayCard').scrollIntoView({behavior:'smooth', block:'start'}); return; }
+  const go = e.target.closest('[data-go]');
+  if (go){ view = clampDay(go.dataset.go); render(); $('#dayCard').scrollIntoView({behavior:'smooth', block:'start'}); return; }
   const w = e.target.closest('[data-me]');
-  if (w){ me = +w.dataset.me; localStorage.setItem(LSME, me); render(); toast(`На вахте: ${S.settings.names[me]}`); return; }
+  if (w){ me = +w.dataset.me; localStorage.setItem(LSME, me); render(); toast(`Лекарь на службе: ${S.settings.names[me]}`); return; }
   const eye = e.target.closest('[data-eye]');
   if (eye){ const v = +eye.dataset.eye, n = S.notes[view] || {}; S.notes[view] = { t: n.t || '', eye: n.eye === v ? 0 : v, u: Date.now() }; save(); renderJournal(); return; }
 });
 
 function sheetEdit(type, i, m){
-  const d = new Date(m.at);
-  openSheet(`<h3>${ICON[type]} ${LABEL[type][0].toUpperCase()+LABEL[type].slice(1)} №${i+1}</h3>
-    <p class="note">Отметил(а): <b>${esc(S.settings.names[m.who] || '?')}</b> · ${human(ymd(d))}, ${hm(m.at)}</p>
+  const t = META[type];
+  openSheet(`<h3>${t.icon} ${t.label}${type === 'drop' || type === 'oint' ? ' №' + (i+1) : ''}</h3>
+    <p class="note">Отметил(а): <b>${esc(S.settings.names[m.who] || '?')}</b> · ${human(view)}, ${hm(m.at)}${m.paw && PAWS[m.paw] ? ` · лапка: ${PAWS[m.paw].name}` : ''}</p>
     <label>Поправить время</label><input type="time" id="mt" value="${hm(m.at)}">
     <div class="acts"><button class="btn gold" id="mSave">Сохранить</button><button class="btn red" id="mDel">Отменить отметку</button></div>
     <button class="btn ghost" style="width:100%" id="mClose">Закрыть</button>`);
-  $('#mSave').onclick = () => { const [h,mi] = $('#mt').value.split(':').map(Number); const nd = parseD(view); nd.setHours(h, mi);
-    S.marks[key(view,type,i)] = Object.assign({}, m, { at: nd.toISOString(), u: Date.now() }); save(); closeSheet(); render(); toast('Время исправлено ✍️'); };
+  $('#mSave').onclick = () => { S.marks[key(view,type,i)] = Object.assign({}, m, { at: timeAt(view, $('#mt').value), u: Date.now() }); save(); closeSheet(); render(); toast('Время исправлено ✍️'); };
   $('#mDel').onclick = () => { delMark(view, type, i); closeSheet(); render(); toast('Отметка снята'); };
   $('#mClose').onclick = closeSheet;
 }
 function sheetAdd(type, i){
-  openSheet(`<h3>${ICON[type]} Отметить задним числом</h3>
-    <p class="note">${human(view)} · ${LABEL[type]} №${i+1}</p>
-    <label>Во сколько было</label><input type="time" id="mt" value="${S.settings.plan[type][i] || '12:00'}">
+  const t = META[type];
+  openSheet(`<h3>${t.icon} Отметить задним числом</h3>
+    <p class="note">${human(view)} · ${t.one}${type === 'drop' || type === 'oint' ? ' №' + (i+1) : ''}</p>
+    <label>Во сколько было</label><input type="time" id="mt" value="${planTime(type, i) || '12:00'}">
     <div class="acts"><button class="btn gold" id="mSave">Отметить</button><button class="btn ghost" id="mClose">Отмена</button></div>`);
-  $('#mSave').onclick = () => { const [h,mi] = $('#mt').value.split(':').map(Number); const nd = parseD(view); nd.setHours(h, mi);
-    setMark(view, type, i, nd.toISOString()); closeSheet(); render(); toast(pick(PH[type])); };
+  $('#mSave').onclick = () => { const c = countDay(view); setMark(view, type, i, timeAt(view, $('#mt').value)); closeSheet(); afterMark(type, i, c.done, c.total); };
   $('#mClose').onclick = closeSheet;
 }
 
@@ -618,12 +920,9 @@ $('#note').addEventListener('input', () => { clearTimeout(noteT); const d = view
   const n = S.notes[d] || {}; S.notes[d] = { t: $('#note').value, eye: n.eye || 0, u: Date.now() }; save(); renderJournal(); }, 600); });
 
 $('#cat').addEventListener('click', () => {
-  const p = $('#patch'); if (p.classList.contains('gone')) { confetti(20); return toast('Капитан здоров! 🧡'); }
+  const p = $('#patch'); if (p.classList.contains('gone')) { confetti(20); return toast('Царь здоров! 🧡'); }
   p.classList.add('peek'); toast(pick(PH.peek)); setTimeout(()=>p.classList.remove('peek'), 1200);
 });
-
-function catMove(cls){ const c = $('#cat'); c.classList.remove('hop','dance'); void c.getBoundingClientRect(); c.classList.add(cls);
-  setTimeout(()=>c.classList.remove(cls), cls === 'dance' ? 1500 : 800); }
 function lookAt(x, y){
   const r = $('#cat').getBoundingClientRect(), cx = r.left + r.width*0.5, cy = r.top + r.height*0.56;
   const dx = x - cx, dy = y - cy, d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 200);
@@ -634,24 +933,46 @@ let lookT;
   clearTimeout(lookT); lookT = setTimeout(()=>document.querySelectorAll('.cat .pupil').forEach(p=>p.style.transform=''), 2500); }, {passive:true}));
 
 /* ---------------- settings ---------------- */
+const fmtDates = arr => arr.slice().sort().map(dm).join(', ');
+function parseDates(s){
+  const out = [], base = parseD(today());
+  for (const part of s.split(/[,;\s]+/).filter(Boolean)){
+    const m = part.match(/^(\d{1,2})\.(\d{1,2})(?:\.(\d{2,4}))?$/); if (!m) continue;
+    const dd = +m[1], mm = +m[2]; let y = m[3] ? +m[3] : base.getFullYear(); if (y < 100) y += 2000;
+    let d = new Date(y, mm-1, dd);
+    if (!m[3]){ const diff = (d - base) / 864e5; if (diff < -180) d = new Date(y+1, mm-1, dd); else if (diff > 180) d = new Date(y-1, mm-1, dd); }
+    out.push(ymd(d));
+  }
+  return [...new Set(out)].sort();
+}
 function fillSettings(){
   const st = S.settings;
-  $('#stStart').value = st.start; $('#stDays').value = st.days; $('#stN0').value = st.names[0]; $('#stN1').value = st.names[1];
+  $('#stName').value = st.name; $('#stN0').value = st.names[0]; $('#stN1').value = st.names[1];
+  $('#stStart').value = st.start; $('#stDays').value = st.days;
   $('#stDrop').value = st.plan.drop.join(', '); $('#stOint').value = st.plan.oint.join(', '); $('#stWait').value = st.wait;
+  $('#stInjStart').value = st.inj.start; $('#stInjDays').value = st.inj.days; $('#stInjTime').value = st.inj.time; $('#stHind').checked = !!st.inj.hindOnly;
+  $('#stAbxStart').value = st.abx.start; $('#stAbxDays').value = st.abx.days; $('#stAbxTime').value = st.abx.time; $('#stAbxDose').value = st.abx.dose;
+  $('#stWorm').value = fmtDates(st.worm); $('#stFlea').value = fmtDates(st.flea); $('#stSpecTime').value = st.specTime;
   const g = gh(); $('#ghRepo').value = g.repo || guessRepo(); $('#ghToken').value = g.token || '';
 }
 const parseTimes = (s, n, def) => { const a = s.split(/[,;\s]+/).map(x=>x.trim()).filter(x=>/^\d{1,2}:\d{2}$/.test(x)).map(x=>x.padStart(5,'0')).sort(); return a.length === n ? a : def; };
+const num = (v, lo, hi, def) => { const n = parseInt(v, 10); return isNaN(n) ? def : Math.max(lo, Math.min(hi, n)); };
 $('#stSave').onclick = () => {
   const st = S.settings;
-  st.start = $('#stStart').value || st.start;
-  st.days = Math.max(1, Math.min(120, +$('#stDays').value || st.days));
+  st.name = $('#stName').value.trim() || 'Соломон';
   st.names = [$('#stN0').value.trim() || 'Я', $('#stN1').value.trim() || 'Она'];
-  st.plan = { drop: parseTimes($('#stDrop').value, N.drop, st.plan.drop), oint: parseTimes($('#stOint').value, N.oint, st.plan.oint) };
-  st.wait = Math.max(0, Math.min(60, +$('#stWait').value || 0));
-  st.u = Date.now(); save(); fillSettings(); view = clampDay(today()); render(); toast('Настройки сохранены ⚓');
+  st.start = $('#stStart').value || st.start;
+  st.days = num($('#stDays').value, 1, 120, st.days);
+  st.plan = { drop: parseTimes($('#stDrop').value, 3, st.plan.drop), oint: parseTimes($('#stOint').value, 5, st.plan.oint) };
+  st.wait = num($('#stWait').value, 0, 60, 0);
+  st.inj = { start: $('#stInjStart').value || st.inj.start, days: num($('#stInjDays').value, 0, 120, st.inj.days), time: $('#stInjTime').value || st.inj.time, hindOnly: $('#stHind').checked };
+  st.abx = { start: $('#stAbxStart').value || st.abx.start, days: num($('#stAbxDays').value, 0, 120, st.abx.days), time: $('#stAbxTime').value || st.abx.time, dose: $('#stAbxDose').value.trim() || st.abx.dose };
+  st.worm = parseDates($('#stWorm').value); st.flea = parseDates($('#stFlea').value);
+  st.specTime = $('#stSpecTime').value || st.specTime;
+  st.u = Date.now(); save(); fillSettings(); view = clampDay(today()); render(); toast('Указы сохранены 📜');
 };
 $('#exp').onclick = () => { const b = new Blob([JSON.stringify(S, null, 1)], {type:'application/json'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = `musashi-${today()}.json`; a.click(); };
+  const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = `solomon-${today()}.json`; a.click(); };
 $('#imp').onclick = () => $('#impFile').click();
 $('#impFile').onchange = async e => { const f = e.target.files[0]; if (!f) return;
   try { const r = normalize(JSON.parse(await f.text())); S = merge(S, r); save(); fillSettings(); render(); toast('Копия загружена 📦'); } catch(err){ toast('Не получилось прочитать файл'); } };
@@ -675,9 +996,8 @@ const b64d = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g,
 function badge(t, title){ const b = $('#syncBadge'); b.hidden = !t; b.textContent = t || ''; b.title = title || ''; }
 async function api(path, opt = {}){
   const g = gh();
-  const r = await fetch(`https://api.github.com/repos/${g.repo}${path}`, Object.assign({ cache: 'no-store' }, opt, {
+  return fetch(`https://api.github.com/repos/${g.repo}${path}`, Object.assign({ cache: 'no-store' }, opt, {
     headers: Object.assign({ Authorization: 'Bearer ' + g.token, Accept: 'application/vnd.github+json' }, opt.headers || {}) }));
-  return r;
 }
 async function ensureBranch(){
   let r = await api(`/branches/${BRANCH}`); if (r.ok) return;
@@ -704,16 +1024,16 @@ async function syncNow(){
       const merged = merge(S, remote);
       const changedLocal = JSON.stringify(merged) !== JSON.stringify(S);
       S = merged; localStorage.setItem(LS, JSON.stringify(S));
-      if (changedLocal) { render(); fillSettingsIfClosed(); }
+      if (changedLocal) { render(); if (!$('#settings').open) fillSettings(); }
       if (!remote || JSON.stringify(merged) !== JSON.stringify(remote)){
-        const body = { message: `Мусаси: ${today()} ${S.settings.names[me] || ''}`.trim(), content: b64e(JSON.stringify(merged)), branch: BRANCH };
+        const body = { message: `${S.settings.name}: ${today()} ${S.settings.names[me] || ''}`.trim(), content: b64e(JSON.stringify(merged)), branch: BRANCH };
         if (sha) body.sha = sha;
         const p = await api(`/contents/${FILE}`, { method: 'PUT', body: JSON.stringify(body) });
         if (p.status === 409 || p.status === 422){ dirty = dirty || wasDirty; continue; }
         if (!p.ok) throw new Error(p.status === 403 || p.status === 404 ? 'У токена нет прав на запись' : 'GitHub ' + p.status);
       }
-      badge('☁️✓', 'Синхронизировано ' + hm(new Date().toISOString()));
-      $('#ghStatus').textContent = `✅ Синхронизировано в ${hm(new Date().toISOString())}`;
+      badge('☁️✓', 'Синхронизировано ' + nowHM());
+      $('#ghStatus').textContent = `✅ Синхронизировано в ${nowHM()}`;
       break;
     }
   } catch(err){
@@ -721,7 +1041,6 @@ async function syncNow(){
     dirty = true;
   } finally { syncing = false; if (dirty) { clearTimeout(syncT); syncT = setTimeout(syncNow, 15000); } }
 }
-function fillSettingsIfClosed(){ if (!$('#settings').open) fillSettings(); }
 $('#ghSave').onclick = () => connect();
 $('#ghToken').addEventListener('change', () => { if ($('#ghToken').value.trim()) connect(); });
 async function connect(repoIn, tokenIn){
@@ -736,20 +1055,20 @@ async function connect(repoIn, tokenIn){
 $('#ghLink').onclick = async () => {
   const g = gh(); if (!g.token) return toast('Сначала подключи синхронизацию на этом телефоне');
   const url = location.origin + location.pathname + '#key=' + encodeURIComponent(g.token) + '&repo=' + encodeURIComponent(g.repo);
-  try { if (navigator.share) { await navigator.share({ title: 'Капитан Мусаси', url }); return; } } catch(e){ if (e.name === 'AbortError') return; }
-  try { await navigator.clipboard.writeText(url); toast('Ссылка скопирована. Отправь её только девушке в личку 🔐'); }
+  try { if (navigator.share) { await navigator.share({ title: 'Царь ' + S.settings.name, url }); return; } } catch(e){ if (e.name === 'AbortError') return; }
+  try { await navigator.clipboard.writeText(url); toast('Ссылка скопирована. Отправь её только в личку 🔐'); }
   catch(e){ prompt('Скопируй ссылку:', url); }
 };
 (function fromLink(){
   const h = new URLSearchParams(location.hash.slice(1)); const k = h.get('key');
   if (!k) return;
   history.replaceState(null, '', location.pathname + location.search);
-  setTimeout(() => { connect(h.get('repo') || guessRepo(), k); toast('⚓ Синхронизация подключена по ссылке'); }, 50);
+  setTimeout(() => { connect(h.get('repo') || guessRepo(), k); toast('Синхронизация подключена по ссылке'); }, 50);
 })();
 $('#ghOff').onclick = () => { localStorage.removeItem(LSG); $('#ghToken').value = ''; badge(''); $('#ghStatus').textContent = 'Синхронизация выключена. Отметки хранятся только на этом телефоне.'; };
 document.addEventListener('visibilitychange', () => { if (!document.hidden){ render(); syncNow(); } });
 setInterval(() => { if (!document.hidden) syncNow(); }, 30000);
-setInterval(() => { if (!document.hidden && !$('#modal').classList.contains('open')) { if (view !== today() && view === addDays(today(), -1)) {} render(); } }, 60000);
+setInterval(() => { if (!document.hidden && !$('#modal').classList.contains('open') && document.activeElement !== $('#note')) render(); }, 60000);
 
 /* ---------------- start ---------------- */
 fillSettings(); render();
